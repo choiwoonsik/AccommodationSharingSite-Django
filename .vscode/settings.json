@@ -1,0 +1,7 @@
+{
+    "python.pythonPath": "/Users/woonsik/.local/share/virtualenvs/sharingWebApp-e_Wbjim4/bin/python",
+    "python.linting.flake8Enabled": true,
+    "editor.formatOnSave": true,
+    "python.formatting.provider": "black",
+    "python.linting.flake8Args": ["--max-line-length"]
+}
