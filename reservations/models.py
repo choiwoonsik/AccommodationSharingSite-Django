@@ -1,3 +1,28 @@
 from django.db import models
+from core import models as core_models
 
-# Create your models here.
+
+class Reservation(core_models.TimeStampedModel):
+
+    """ Reservation Model Definition """
+
+    STATUS_PENDING = "pending"
+    STATUS_CONFIRMED = "confirmed"
+    STATUS_CANCLED = "canceled"
+
+    STATUS_CHOICES = (
+        (STATUS_PENDING, "Pending"),
+        (STATUS_CONFIRMED, "Confirmed"),
+        (STATUS_CANCLED, "Canceled"),
+    )
+
+    status = models.CharField(
+        max_length=12, choices=STATUS_CHOICES, default=STATUS_PENDING
+    )
+    guest = models.ForeignKey("users.User", on_delete=models.CASCADE, null=True)
+    room = models.ForeignKey("rooms.Room", on_delete=models.CASCADE, null=True)
+    check_in = models.DateField(null=True, blank=True)
+    check_out = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.room} : {self.check_in} - {self.check_out}"
