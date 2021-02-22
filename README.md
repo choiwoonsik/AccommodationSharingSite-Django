@@ -65,15 +65,13 @@
 
 ---
 
-## [기능별 Application]
-
 장고에 기본적으로 django-admin startapp OOO을 입력하면 기본양식으로 애플리케이션을 생성해준다. 앞으로 필요한 모든 애플리케이션은 해당 명령어를 통해서 생성해준다
 
 > 장고 프레임워크에 맞춰서 설계하는 것이므로 주어진 양식에 따라서 작성해줘야 한다. 따라서 파일을 변경하거나 지우면 안된다. (라이브러리는 내 코드가 해당 함수를 호출 - 도구 vs 프레임워크는 프로그램에서 내 코드를 호출 - 제공되는 틀)
 
 ## [USERS APPLICATION]
 
-- 유저(고객) 객체를 관리
+유저(고객) 객체를 관리
 
 ### **Models.py**
 
@@ -99,7 +97,6 @@
 
 - User의 리스트의 보여주는 형태를 변경하기 위해 사용
 - 리스트에서 보여줄 특성값들을 고른다
-- 코드
 
   ```python
   list_display = ("username", ... )
@@ -108,10 +105,19 @@
 **list_filter**
 
 - 객체(유저)리스트에 대해서 특성값에 대해 filter를 적용하여 볼수 있다
-- 코드
 
   ```python
   list_filter = ('preference', ... )
+  ```
+
+**search_fields**
+
+- 특성값에 대한 검색을 가능하게 한다
+- 특정 class인스턴스의 프로퍼티로 접근하기 위해서는 `__`로 이어가면 접근할수 있다
+
+  ```python
+  search_fields = ["city", "host__username"]
+  // User객체인 host의 프로퍼티임 username에 접근
   ```
 
 **fieldsets**
@@ -119,7 +125,6 @@
 - 리스트 내의 유저 내부의 값을 보여줄때 사용
 - fieldsets를 이용해서 admin에서 보여주고자 하는 값을 조절할 수 있다
 - UserAdmin.fieldsets은 장고에 내장되어있는 UserAdmin의 필드값들을 갖고있으므로 [UserAdmin.fieldsets + models]를 통해 생성한 필드값들을 추가함으로서 기존 값 + 새로운 값을 갖는 admin창을 만들 수 있다
-- 코드
 
   ```python
   from django.contrib.auth.admin import UserAdmin
@@ -128,6 +133,7 @@
           (
               "custom profile",
               {
+  								**"classes": ("collapse",), # 간략히 보여주기가 가능해진다**
                   "fields": (
                       "avatar",
                       "gender",
@@ -139,11 +145,25 @@
       )
   ```
 
----
+**ordering = ("price",)**
+
+- list_display 항목중 골라서 기본세팅으로 정렬값을 줄 수 있다
+
+**filter_horizontal**
+
+- ManyToManyField()의 값을 갖는 값에 대해서 여러개를 가지게 되면 보기 힘드므로 보기 쉽게 만들어주는 형식
+
+  ```java
+  filter_horizontal = (
+          "amenities",
+          "facilities",
+          "house_rules",
+      )
+  ```
 
 ## [ROOMS APPLICATION]
 
-- 방 객체를 관리
+방 객체를 관리
 
 ### **core - models.py**
 
@@ -178,44 +198,232 @@
 - verbose_name_plural("<name>") : 장고에서 자동으로 s를 붙여주는데 ies를 확인해주지 못하므로 원하는 단어로 설정
 - verbose_name("<name>") : s는 그대로 붙이는데 설정한 이름을 갖게한뒤 붙임
 
+[REVIEWS, RESERVATION, LIST, CONVERSATION APPLICATION]
+
+생략
+
 ---
 
-### [REVIEWS APPLICATION]
+## [QuerySet]
 
-- 방들의 리뷰를 관리
+**ForeignKey**
+
+- User의 모델에는 Room객체를 따로 설정해주지 않았지만 python으로 db를 확인해보면 user객체는 room객체를 갖고있는것을 알수 있다. 이는 Room객체의 host변수에서 ForeignKey로 User를 갖기 때문이다.
+
+  즉 Room은 하나의 유저를, 유저는 여러개의 방을 갖는 다대일 구조를 갖게된다
+
+- A 객체가 B 객체를 ForeignKey로 갖게되면 B 객체의 개체(element) 또한 **???\_set**의 구조로 그 객체를 갖게 된다, 그러면 B객체의 element는 모든 A객체의 element에 접근할수 있다
+
+  ```python
+  #python manage.py sehll
+  >>> user_obj = User.objects.get(username="woonsik")
+  >>> print(user_obj)
+  woonsik
+  >>> user_obj.**room_set**
+  <django.db.models.fields.related_descriptors.create_reverse_many_to_one_manager.<locals>.RelatedManager object at 0x7fd419077100>
+  >>> user_obj.room_set.all()
+  <QuerySet [<Room: woonsikRoom>]>
+  >>> dnstlr.review_set.all()
+  <QuerySet [<Review: 뿌뿌이롱 - woonsikRoom>]>
+  ```
+
+- 여기서 set은 장고가 대신 만들어준것이다
+
+**related_name**
+
+- 어떤 값에 대해 ForeignKey를 설정할 때, 외부키로 설정된 객체가 외부키를 갖는 객체에 접근하는 이름을 변경할 수 있다 (default값은 **OOO_set**)
+
+  ```python
+  host = models.ForeignKey("users.User", **related_name="rooms"**, on_delete=models.CASCADE)
+  ```
+
+  ```python
+  >>> dnstlr.rooms.all()
+  <QuerySet [<Room: woonsikRoom>]>
+
+  #room_set이아닌 rooms로 접근하는 모습
+  ```
+
+- related_name은 대상을 위한 이름으로 설정한다. host.rooms.all()을 통해 host의 모든 방을 보게 되는 방식
+
+**ManyToManyField()**
+
+- QuerySet으로 값을 갖는다
+
+  ```python
+  amenities = models.**ManyToManyField**("Amenity", blank=True)
+  # Room 객체가 복수의 Amenity 객체를 가질수있게 된다
+  ```
+
+  ```python
+  >>> room.review_set.all() # Room객체가 다대다 구조로 갖는 review 클래스, Amenity 클래스
+  <QuerySet [<Review: 뿌뿌이롱 - woonsikRoom>]>
+  >>> room.amenities.all()
+  <QuerySet [<Amenity: 소파>, <Amenity: 침대>]>
+  >>> room.amenities.count()
+  2
+  ```
+
+> QuerySet은 리스트이고 object는 ManyToMany, ForeignKey를 갖는다
+
+---
+
+### [MODELS, ADMIN FUNCTION]
+
+Admin패널 뿐만 아니라 Models.py에도 function을 넣을수 있다. 이는 보통 다른 models에서도 재사용하고자 하는 함수는 models에 작성하며, 특정 앱의 admin에서만 사용하고자하는 함수의 경우 admin패널에 작성하게 된다
+
+**admin.py**
+
+- admin패널에 함수를 작성하게 되는 경우
+
+```python
+# self = RoomAdmin, obj = row
+    def count_amenities(self, obj):
+        return obj.amenities.count()
+
+    count_amenities.short_description = "function"
+
+    def count_photos(self, obj):
+        return obj.photos.count()
+```
+
+위와 같은 경우에는 함수의 self로는 admin 자체가 들어가고, obj로는 admin의 row가 들어가게 된다. 따라서 row를 이루는 개체 (여기서는 room)의 amenities의 count()를 반환하게 된다
+
+- FUNC_NAME.short_description을 통해 admin패널에 나오는 함수의 이름을 변경할수 있다
+- list_display에 함수명을 추가해서 함수의 반환값을 출력하도록 할수 있다
 
 **models.py**
 
-- foreignkey를 통해서 다른 클래스의 프로퍼티에 접근이 가능하다
+- models.py에 함수를 작성하게 되는 경우
 
-  ```python
-  room = models.ForeignKey("rooms.Room", on_delete=models.CASCADE)
+```python
+# room Ojbect
+def total_rating(self):
+  all_reviews = self.reviews.all()
+  all_rating = 0
+  length = 1
+  for review in all_reviews:
+      all_rating += **review.rating_average()**
+  if all_rating is 0:
+      return 0
+  else:
+      length = len(all_reviews)
+      return round(all_rating / length, 2)
+```
 
-  def __str__(self):
-  		return self.room.name
-  ```
+매개변수로 self하나만 들어오며, self는 앱의 모델객체 자체이다. 현재 room객체이므로 room객체의 모든 reviews를 가져와서 **각 review들의 review_average()함수를 통해 리뷰의 평점**을 가져오고, 해당 평점들을 모두 더해서 방의 리뷰 평점 평균을 구하게 된다. 즉 models.py에 담긴 함수는 외부 앱에서도 접근이 가능하다
 
-- 평가 항목들을 선언
-
-**Admin.py**
-
-- review Admin 패널 생성
-
----
-
-### [RESERVATION APPLICATION]
-
-- 방 예약 관리
-
----
-
-### [LIST APPLICATION]
-
-- 방들을 담은 리스트 관리
+- admin 함수와 마찬가지로 list_display에 함수명을 추가하면 admin패널의 상태를 추가할수 있다
 
 ---
 
-### [CONVERSATION APPLICATION]
+## **[photos]**
 
-- 여러 사람들과의 메시지를 갖는 conversation application
-  - 메시지 클래스는 유저, 내용, 대화를 값으로 갖는다
+config의 settings.py에 다음을 추가
+
+```python
+~
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
+# 위 내용을 추가함으로서 local폴더명은 uploads지만 이를 media라는 이름으로 접근하게 된다
+
+MEDIA_URL = "/media/"
+# '/'를 앞에 추가함으로서 root에서 바로 media로 접근하게 된다
+# -> http://127.0.0.1:8000/media/room_photos/???.jpg
+```
+
+결과적으로 장고에게 파일이 저장되는 폴더명을 MEDIA_ROOT를 통해 알려주고, MEDIA_URL을 통해 접근할 수 있도록한다
+
+Room의 models.py에 Photo클래스
+
+```python
+file = models.ImageField(upload_to="room_photos")
+```
+
+위 코드를 통해 들어오는 file을 room_photos폴더에 넣게되는데, 해당 디렉토리는 media/room_photos가 되고 media는 root디렉토리 바로 다음에 연결되도록 했으므로 root/media/room_photos에 해당 파일이 저장되게 된다
+
+이후 config.urls 작성 - static을 이용하여 디렉토리와 url연결
+
+```python
+from django.conf.urls.static import static
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+]
+
+if settings.DEBUG:
+    # static을 이용해서 settgins.MEDIA_URL과 실제 사진이 저장된 폴더를 연결시켜 주었다
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
+
+DEBUG모드시에만 media폴더 디렉토리와 url을 연결시켜줌으로서 root/media/room_photos에 접근하면 MEDIA_ROOT인 `절대경로 BASE_DIR + "/uploads"`로 접근하게 해준다
+
+DEBUG모드시에만 접근하도록 하는 이유는 배포시에는 아마존 s3등을 이용해서 DB를 사용하는데 이때 운용되는 서버마다 사진을 보관하게 하면 너무많은 용량을 차지하게 되므로 이때는 다른 방법을 사용한다. 현재 개발모드중에만 테스트를 위해 로컬에 보관하는 방식으로 진행한다
+
+### [**PhotoAdmin]\*\*
+
+models를 통해 받은 사진을 admin패널에 표시해보자
+
+file은 많은 값을 갖고있는데 이 중에서 obj.file.url을 통해 해당 파일의 url에 접근할 수 있다. 따라서 html 코드를 통해 해당 이미지를 출력하면된다
+
+이때, 장고는 보안상의 이유로 html을 바로 받아서 열지 않고 문자열로 처리해버리는데 이를 위해 장고에게 mark_safe 표시를 해줘야 html링크가 자동으로 열리게 된다
+
+```python
+return **mark_safe**(f"<img width=40px src = {obj.file.url}/>")
+```
+
+---
+
+### [InlineModelAdmin]
+
+admin안에 admin을 넣는 방법
+
+- admin.TabularInline
+- admin.StackedInline
+
+두가지가 존재하며 보여주는 방식에서 차이가 있다
+
+특정 클래스의 admin이 이미 존재할 때, 해당 admin을 다른 클래스의 admin에 넣고 싶을 때 사용할수 있다
+
+```python
+class PhotoInline(admin.TabularInline):
+
+    model = models.Photo
+
+@admin.register(models.Room)
+class RoomAdmin(admin.ModelAdmin):
+
+    """ Room Admin Definition """
+
+    inlines = (PhotoInline,) # RoomAdmin에 photoAdmin을 인라인으로 넣은 것
+
+		~
+```
+
+---
+
+### [save() method]
+
+models의 save()메소드를 오버라이딩을 통해 원하는 이벤트를 추가할수 있다
+
+```python
+def save(self, *args, **kwargs):
+        do_something()
+				# Call the "real" save() method.
+				self.city = str.capitalize(self.city)
+        super().save(*args, **kwargs)
+				do_something_else()
+```
+
+save()를 호출하게 되면 먼저 self.city의 첫글자만 대문자로 변경하고 나머지를 소문자로 한뒤 super()의 save()를 다시 호출해서 real save()를 진행해준다
+
+단, 위의 save()의 경우 models.py에 작성되며 admin, view등 모든 저장에서 불려지게 된다. 따라서 admin에서의 저장이 발생했을 때만 save()를 변경해서 적용하고자 하면 따로 해야한다
+
+**admin에서의 save()**
+
+```python
+def save_model(self, request, obj, form, change):
+	print(obj, request, obj, change)
+	super().save_model(request, obj, form, change)
+```
+
+admin에서의 save가 일어나면 save_model이 불리고 원하는 작업을 실행하고 이후 super().save_model이 실행되는데 이때, 위의 models의 save()가 불려지게 된다
