@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
 ]
+
+if settings.DEBUG:
+    # static을 이용해서 settgins.MEDIA_URL과 실제 사진이 저장된 폴더를 연결시켜 주었다
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -134,3 +134,7 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 AUTH_USER_MODEL = "users.User"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
+
+MEDIA_URL = "/media/"  # '/'를 앞에 추가함으로서 root에서 바로 media로 접근하게 된다 -> http://127.0.0.1:8000/media/room_photos/???.jpg
