@@ -41,7 +41,7 @@
 
    - 이때 먼저 admin계정을 활성화해준다
      - `python manage.py migrate`를 통해 활성화하고 `python manage.py createsuperuser` 를 통해 관리자 계정을 생성
-   - ~ipAddress~/admin 을 통해 관리자 계정으로 접근 가능
+   - ipAddress/admin 을 통해 관리자 계정으로 접근 가능
 
    > migrate란?
 
@@ -59,7 +59,7 @@
    - 프로젝트는 애플리케이션의 집합이고 애플리케이션은 Group of function이다
    - 모든 애플리케이션을 Divide and Conquer 방식으로 독립적으로 구성해야한다. Room, User, Reservation, Review 등등 모든 애플리케이션을 따로 찢고 해당 애플리케이션의 함수를 생성하도록하자. room의 경우 room 검색, room 생성, room 삭제, room 업데이트, room 보기 등 기본적으로 CRUD를 기반으로 생각하고 추가적인 function을 갖도록 하자
    - **애플리케이션을 생성할지 말지에 대한 선택이 중요**하고, **애플리케이션은 한 문장으로 표현할 수 있어야한다**
-     - 예를 들어 User Application에서의 기능은 ? → 유저 로그인, 로그아웃, 회원가입, 비번변경 ~~**AND 메시지 보내기**~~ 여기서 AND로 이어지지 않고 유저의 OO 기능으로 끝나야한다
+     - 예를 들어 User Application에서의 기능은 ? → 유저 로그인, 로그아웃, 회원가입, 비번변경 **AND 메시지 보내기** 여기서 AND로 이어지지 않고 유저의 OO 기능으로 끝나야한다
      - AND로 이어진다면 이는 새로운 애플리케이션을 생성해야한다 → 메시지 보내기, 지우기, 보여주기, 전부 보여주기
 8. 프로젝트 시작
 
