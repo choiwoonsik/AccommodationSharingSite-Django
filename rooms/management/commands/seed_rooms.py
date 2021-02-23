@@ -1,3 +1,4 @@
+from datetime import date, time, timedelta, datetime
 from os import times
 import random
 from django.core.management.base import BaseCommand
@@ -28,6 +29,9 @@ class Command(BaseCommand):
         amenities = room_models.Amenity.objects.all()
         facilities = room_models.Facility.objects.all()
         rules = room_models.HouseRule.objects.all()
+        ontime = datetime.now() - timedelta(
+            hours=datetime.now().hour, minutes=datetime.now().minute
+        )
 
         seeder.add_entity(
             room_models.Room,
@@ -42,6 +46,8 @@ class Command(BaseCommand):
                 "beds": lambda x: random.randint(1, 5),
                 "bedrooms": lambda x: random.randint(1, 5),
                 "baths": lambda x: random.randint(1, 5),
+                "check_in": lambda x: ontime + timedelta(hours=random.randint(13, 16)),
+                "check_out": lambda x: ontime + timedelta(hours=random.randint(7, 11)),
             },
         )
         created_photos = seeder.execute()
