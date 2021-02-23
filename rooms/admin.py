@@ -41,6 +41,7 @@ class RoomAdmin(admin.ModelAdmin):
             "Spces",
             {
                 "fields": (
+                    "room_type",
                     "guests",
                     "beds",
                     "bedrooms",
@@ -71,6 +72,7 @@ class RoomAdmin(admin.ModelAdmin):
         "price",
         "address",
         "guests",
+        "room_type",
         "beds",
         "bedrooms",
         "baths",
@@ -78,6 +80,8 @@ class RoomAdmin(admin.ModelAdmin):
         "check_out",
         "instant_book",
         "count_amenities",
+        "count_facilities",
+        "count_rules",
         "count_photos",
         "total_rating",
     )
@@ -109,10 +113,22 @@ class RoomAdmin(admin.ModelAdmin):
     def count_amenities(self, obj):
         return obj.amenities.count()
 
-    # count_amenities.short_description = "function"
+    count_amenities.short_description = "Amenities count"
+
+    def count_facilities(self, obj):
+        return obj.facilities.count()
+
+    count_facilities.short_description = "Facilities count"
+
+    def count_rules(self, obj):
+        return obj.house_rules.count()
+
+    count_rules.short_description = "House Rule count"
 
     def count_photos(self, obj):
         return obj.photos.count()
+
+    count_photos.short_description = "Photo count"
 
 
 @admin.register(models.Photo)

@@ -6,7 +6,7 @@ class Review(core_models.TimeStampedModel):
 
     """ Review Model Definition """
 
-    review = models.TextField(max_length=140)
+    review = models.TextField(max_length=80)
     # 평가 항목
     accuracy = models.IntegerField()
     communication = models.IntegerField()

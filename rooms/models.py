@@ -7,7 +7,7 @@ class AbstractItem(core_models.TimeStampedModel):
 
     """ Abstract Item """
 
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=20)
 
     class Meta:
         abstract = True
@@ -61,7 +61,7 @@ class Photo(core_models.TimeStampedModel):
 
     """ Photo Model Definition """
 
-    caption = models.CharField(max_length=80)
+    caption = models.CharField(max_length=20)
     file = models.ImageField(upload_to="room_photos")
     room = models.ForeignKey("Room", related_name="photos", on_delete=models.CASCADE)
 
@@ -73,12 +73,12 @@ class Room(core_models.TimeStampedModel):
 
     """ Room Model Definition """
 
-    name = models.CharField(max_length=140)  # 이름
+    name = models.CharField(max_length=15)  # 이름
     description = models.TextField()  # 설명
     country = CountryField()  # 나라
-    city = models.CharField(max_length=80)  # 도시
+    city = models.CharField(max_length=20)  # 도시
     price = models.IntegerField()  # 가격
-    address = models.CharField(max_length=140)  # 주소
+    address = models.CharField(max_length=30)  # 주소
     guests = models.IntegerField()  # 게스트
     beds = models.IntegerField()  # 침대
     bedrooms = models.IntegerField()  # 침실
@@ -90,7 +90,7 @@ class Room(core_models.TimeStampedModel):
         "users.User", related_name="rooms", on_delete=models.CASCADE
     )
     room_type = models.ForeignKey(
-        "RoomType", related_name="rooms", on_delete=models.SET_NULL, null=True
+        "RoomType", related_name="rooms", on_delete=models.CASCADE
     )
     amenities = models.ManyToManyField("Amenity", related_name="rooms", blank=True)
     facilities = models.ManyToManyField("Facility", related_name="rooms", blank=True)
