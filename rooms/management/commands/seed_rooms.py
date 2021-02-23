@@ -3,6 +3,8 @@ from os import times
 import random
 from django.core.management.base import BaseCommand
 from django.contrib.admin.utils import flatten
+from django_countries import Countries
+from django_countries.fields import CountryField
 from django_seed import Seed
 from rooms import models as room_models
 from users import models as user_models
@@ -32,11 +34,15 @@ class Command(BaseCommand):
         ontime = datetime.now() - timedelta(
             hours=datetime.now().hour, minutes=datetime.now().minute
         )
+        countries = []
+        for c in CountryField().countries:
+            countries.append(c)
 
         seeder.add_entity(
             room_models.Room,
             int(number),
             {
+                "country": lambda x: random.choice(countries),
                 "city": lambda x: seeder.faker.city(),
                 "address": lambda x: seeder.faker.address(),
                 "host": lambda x: random.choice(all_users),
