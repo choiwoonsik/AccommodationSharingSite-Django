@@ -73,7 +73,7 @@ class Room(core_models.TimeStampedModel):
 
     """ Room Model Definition """
 
-    name = models.CharField(max_length=15)  # 이름
+    name = models.CharField(max_length=25)  # 이름
     description = models.TextField()  # 설명
     country = CountryField()  # 나라
     city = models.CharField(max_length=20)  # 도시

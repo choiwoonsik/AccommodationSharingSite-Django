@@ -432,3 +432,161 @@ def save_model(self, request, obj, form, change):
 ```
 
 admin에서의 save가 일어나면 save_model이 불리고 원하는 작업을 실행하고 이후 super().save_model이 실행되는데 이때, 위의 models의 save()가 불려지게 된다
+
+---
+
+## [Django-seed]
+
+서버 테스트를 위한 fake-data 생성
+
+- User, Room, Facility, Amenity, City, 등등 모든 개체에 대한 데이터를 생성해서 넣어주자
+
+**세팅**
+
+원하는 애플리케이션에 가서 management 폴더 생성 → [init.py](http://init.py) 생성 후 coomands 폴더 생성 → commands 폴더에도 init.py 생성 후 작업을 위한 파일 생성 (seed_amenities.py)
+
+**BaseCommand**
+
+반복적인 작업을 위한 BaseCommand를 사용
+
+- 예시
+
+  ```python
+  class Command(BaseCommand):
+      help = "this command tells me how can use this"
+
+      def add_arguments(self, parser):
+          parser.add_argument(
+              "--times",
+              help=("Input the count of repeatedly do handle"),
+          )
+
+      def handle(self, *args, **options):
+          """
+          The actual logic of the command. Subclasses must implement
+          this method.
+          """
+          times = options.get("times")
+          for t in range(0, int(times)):
+  						## 아래 내용을 통해 초록색 or 빨간색 or 주황색등으로 출력할수 있다
+              **self.stdout.write(self.style.SUCCESS("I love you"))**
+  ```
+
+  ```python
+  python manage.py <"seed파일명"> --help
+  >
+  usage: manage.py loveyou [-h] [--times TIMES] [--version] [-v {0,1,2,3}] [--settings SETTINGS] [--pythonpath PYTHONPATH] [--traceback] [--no-color] [--force-color]
+
+  this command tells me hello love me
+
+  optional arguments:
+    -h, --help            show this help message and exit
+    --times TIMES         Input the count of repeatedly do handle
+  	~
+  ```
+
+Room의 Amenity를 만들기 위해 활용 - handle함수 수정
+
+```python
+def handle(self, *args, **options):
+	amenities = [내용물 ...]
+	for amenity in amenities:
+	            room_models.Amenity.objects.create(name=amenity)
+	        self.stdout.write(self.style.SUCCESS("Amenities Created !"))
+```
+
+django-seed를 설치해서 User 객체 생성
+
+```python
+from django_seed import Seed
+
+def add_arguments(self, parser):
+
+  parser.add_argument(
+      "--number", default=1, help="how many users do you want to create?"
+  )
+
+def handle(self, *args, **options):
+
+  number = options.get("number")
+  **seeder = Seed.seeder()**
+  **seeder.add_entity(
+      user_models.User, int(number), {"is_staff": False, "is_superuser": False}
+  )**
+  **seeder.execute()**
+  self.stdout.write(self.style.SUCCESS(f"user {number} is Created !"))
+```
+
+→ `python manage.py seed_users --number 50`
+
+위 명령을 통해 50개의 유저를 생성할 수 있다. 알아서 OOOField()에 적합한 데이터가 생성되어서 들어간다
+
+foreignKey를 랜덤으로 넣어서 생성하는 경우
+
+```python
+def handle(self, *args, **options):
+
+        number = options.get("number")
+        seeder = Seed.seeder()
+
+        all_users = user_models.User.objects.all()
+        room_types = room_models.RoomType.objects.all()
+
+        seeder.add_entity(
+            room_models.Room,
+            int(number),
+            {
+                "city": lambda x: seeder.faker.city(),
+                "address": lambda x: seeder.faker.address(),
+                "host": lambda x: random.choice(all_users),
+                "room_type": lambda x: random.choice(room_types),
+                "price": lambda x: random.randint(0, 1000),
+                "guests": lambda x: random.randint(1, 5),
+                "beds": lambda x: random.randint(1, 5),
+                "bedrooms": lambda x: random.randint(1, 5),
+                "baths": lambda x: random.randint(1, 5),
+            },
+        )
+        created_photos = seeder.execute()
+```
+
+random의 choice를 이용해서 객체중에서 하나를 고르게한다. 단 실제 배포모드에서는 all()로 모든 객체를 부르지않고 개수를 제한해서 불러야한다. (왜? 만약 수천개의 user가 있다면 너무 많으므로)
+
+---
+
+## [VIEWS]
+
+사용자는 url을 요청하고 그에 맞는 응답으로 view를 제공한다. room의 사진들을 요청했다면 room의 사진들을 view를 통해 제공한다. 이때, view를 함수로 제공한다
+
+필요한 url이 요청될 때마다 그에 맞는 view를 제공해야하므로 url을 그에 맞는 애플리케이션끼리 나눠서 갖게해준다. room에 관련된 url의 경우 rooms의 url.py에 작성하게 된다
+
+→ url에 대한 요청으로 http응답메시지를 보내야한다. 이때 응답메시지에는 내용으로 HTML이 포함될수 있다. 이를 이용해서 요청 url에 맞는 화면을 보여준다
+
+**template & render**
+
+또한, 모든 요청에 대해 http메시지를 보내지 않기위해 template를 사용한다. Django는 **render()**를 이용해서 요청에 대해 작성한 html과 미리 설정한 context변수를 확인해서 HTTP메시지로 보내게 된다
+
+render() : Return a HttpResponse whose content is filled with the result of calling django.template.loader.render_to_string() with the passed arguments.
+
+```python
+def all_rooms(request):
+  now = datetime.now()
+  hungry = True
+  return **render**(request, "all_rooms.html", context={"now": now, "hungry": hungry})
+```
+
+**html 파일**
+
+request의 응답으로 render를 이용해서 특정 html파일을 보내게된다. 이때 html파일에서는 render에서 선언한 변수(context)를 사용할수 있다
+
+사용방법으로는 `{{ 변수 }}`와 파이썬 코드를 위한 `{% code %}`가 있다
+
+```java
+**all_rooms.html 예시**
+
+<h1>Hello! nice to meet you</h1>
+
+<h4>The time right now is : {{now}}</h4>
+
+<h5>{% if hungry %} I'm hungry {% else %} I'm okay {% endif %}</h5>
+```
