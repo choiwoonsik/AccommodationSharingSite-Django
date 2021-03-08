@@ -590,3 +590,220 @@ request의 응답으로 render를 이용해서 특정 html파일을 보내게된
 
 <h5>{% if hungry %} I'm hungry {% else %} I'm okay {% endif %}</h5>
 ```
+
+### [PAGE]
+
+Room 페이지별로 특정 개수의 방만 보여주고 특정 페이지로 갈수 있도록 구현
+
+**3가지 방법이 존재**
+
+- Django를 사용하지 않고 **순수 파이썬을 이용**해서 구현하는 경우
+- Django의 **Pagination**을 이용해서 구현하는 경우
+- **list view** (class based view)를 이용해서 구현하는 경우
+
+1. Rooms views.py - 파이썬을 이용해서 구현하는 경우
+
+```java
+def all_rooms(request):
+		//request -> ip~/?page=1 에서 page는 key, 1은 value
+    page = request.GET.get("page", 1) //key값으로 page를 넣고 반환값을 받는다
+		page = int(page or 1) // page값이 있으면 int로 받고 없으면 1
+		page_size = 10
+    limit = page * page_size
+    offset = limit - page_size
+    page_count = ceil(models.Room.objects.count() / page_size)
+    all_rooms = models.Room.objects.all()[offset:limit]
+    return render(
+        request,
+        "rooms/home.html",
+        context={
+            "rooms": all_rooms,
+            "page": page,
+            "page_count": page_count,
+            "page_range": range(1, page_count + 1),
+        },
+    )
+```
+
+- home.html - 수동적으로 파이썬으로 만드는 경우
+
+```html
+<h5>
+    {% if page is not 1 %}
+    <a href="?page={{page|add:-1}}">Previous</a>
+    {% endif %}
+    Page {{page}} of {{page_count}}
+    {% if page is not page_count %}
+    <a href="?page={{page|add:1}}">Next</a>
+    {% endif %}
+  </h5>
+```
+
+2. Room views.py - Django를 사용하여 만드는 경우, **Paginator 사용**
+
+```python
+def all_rooms(request):
+    page = request.GET.get("page")
+    room_list = models.Room.objects.all()
+    paginator = Paginator(room_list, 10, **orphans=5**) 
+    rooms = paginator.get_page(page)  # querySet을 반환, rooms는 object_list를 갖고있다
+    return render(request, "rooms/home.html", {"rooms": rooms})
+
+# **orphans**가 5이하라면 마지막 이전 페이지에 합쳐서 보여주게된다
+```
+
+- home.html - Paginator를 이용해서 구현한 경우
+
+```python
+{% block content %} 
+
+  {% for room in rooms.object_list %}
+    <h3>{{room.name}} </h3>
+    <h4>주소 : {{room.address}}, 가격 : {{room.price}}</h4>
+  {% endfor %} 
+
+<h5>
+    {% if page.has_previous %}
+    <a href="?page={{page.previous_page_number}}">Previous</a>
+    {% endif %}
+    
+    Page {{page.number}} of {{page.paginator.num_pages}}
+
+    {% if page.has_next %}
+    <a href="?page={{page.next_page_number}}">Next</a>
+    {% endif %}
+  </h5>
+
+{% endblock content %}
+```
+
+3. Rooms views.py - list view(**class based view**)를 사용하여 구현하는 경우
+
+listview의 메소드 및 Attributes 참고 사이트
+[https://ccbv.co.uk/projects/Django/3.0/django.views.generic.list/ListView/](https://ccbv.co.uk/projects/Django/3.0/django.views.generic.list/ListView/)
+
+Homeview는 클래스로 ListView를 상속받는다. ListView의 활용은 위의 사이트를 통해 참고하도록하자. 지금까지는 function based view로 함수를 이용하여 구현하였지만 listview는 class based view이다.
+
+```python
+class HomeView(ListView):
+
+    """ HomeView Definition """
+
+    model = models.Room
+    paginate_by = 10
+    ordering = "name"
+    paginate_orphans = 5
+    page_kwarg = "page"
+    context_object_name = "rooms"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        now = timezone.now()
+        context["now"] = now
+        return context
+```
+
+- room_list.html
+
+```python
+# listview를 사용하게 됨으로서 html의 이름 또한 view의 규칙을 따른다. 
+# 사용하는 models의 클래스 명_list.html 의 파일을 가져야한다
+# 나머지 내용은 이전 파일 그대로 사용하면 된다3
+# (obj_list는 page_obj로 받아야한다, 현재는 rooms로 이름을 변경)
+```
+
+---
+
+### [애플리케이션 VIEW page 구성]
+
+각 애플리케이션 폴더에서 urls.py파일과 views.py파일을 이용하여 서비스별 페이지를 로드하도록 할수 있다.
+
+예) rooms에서 방 리스트를 보여주고, 각 방을 클릭하면 그 방의 페이지를 로드하는 방식 등
+
+config폴더에서 애플리케이션 urls로 보내주고, 각 앱의 urls.py에서 더 자세하게 들어갈 수 있도록 처리한다. 이때, 앱의 views.py에서 보여줄 화면을 구성하고 html파일들은 templates폴더에서 모두 관리하도록 한다
+
+- config - urls.py
+
+```python
+urlpatterns = [
+    path("", include("core.urls", namespace="core")),
+    path("rooms/", include("rooms.urls", namespace="rooms")),
+    path("admin/", admin.site.urls),
+]
+
+if settings.DEBUG:
+    # static을 이용해서 settgins.MEDIA_URL과 실제 사진이 저장된 폴더를 연결시켜 주었다
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
+
+- rooms - urls.py
+
+```python
+from django.urls import path
+from . import views
+
+app_name = "rooms"
+
+urlpatterns = [path("<int:pk>", views.room_detail, name="detail")]
+```
+
+- rooms - views.py
+
+```python
+class HomeView(ListView):
+
+    """ HomeView Definition """
+
+    model = models.Room
+    paginate_by = 10
+    ordering = "name"
+    paginate_orphans = 5
+    page_kwarg = "page"
+    context_object_name = "rooms"
+
+def room_detail(request, pk):
+
+    print(pk)
+
+    return render(request, "rooms/detail.html")
+```
+
+위에서 아래로 점점 파고드는 구조로 되어있다. 구조를 잘 이해하도록 하자. 다른 앱들도 이런 형태로 짜게 된다
+
+### [애플리케이션 DetailView]
+
+함수형 detail_view 구성
+
+```python
+//views.py
+def room_detail(request, pk):
+
+    try:
+        room = models.Room.objects.get(pk=pk)
+        return render(request, "rooms/detail.html", context={"room": room})
+    except models.Room.DoesNotExist:
+        raise Http404()
+```
+
+- 잘못된 접근은 Http404()메서드를 사용해서 처리해야한다
+- render로 변수값을 전달해줘야 html에서 값을 사용할 수 있다
+
+클래스view 구성
+
+```python
+//views.py
+class RoomDetail(DetailView):
+
+    """ RoomDetail Definition """
+
+    model = models.Room
+```
+
+- 잘못된 접근도 404로 알아서 처리해준다
+- model로 객체를 주면 알아서 소문자로 처리하여서 html 값으로 전달해준다
+- DetailView는 자동으로 개체의 `pk`값을 기준으로 객체를 탐색해준다. 그러고 그 값을 url요청때 전달한다
+
+```python
+// urls.py 
+urlpatterns = [path("<int:pk>", views.RoomDetail.as_view(), name="detail")]
+```

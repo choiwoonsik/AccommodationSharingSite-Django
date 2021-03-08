@@ -1,9 +1,28 @@
-from datetime import datetime
-from django.shortcuts import render
-from django.http import HttpResponse
-from rooms import models
+from django.views.generic import ListView, DetailView
+from django.utils import timezone
+from . import models
 
 
-def all_rooms(request):
-    all_rooms = models.Room.objects.all()
-    return render(request, "rooms/home.html", context={"rooms": all_rooms})
+class HomeView(ListView):
+
+    """ HomeView Definition """
+
+    model = models.Room
+    paginate_by = 10
+    ordering = "name"
+    paginate_orphans = 5
+    page_kwarg = "page"
+    context_object_name = "rooms"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        now = timezone.now()
+        context["now"] = now
+        return context
+
+
+class RoomDetail(DetailView):
+
+    """ RoomDetail Definition """
+
+    model = models.Room
