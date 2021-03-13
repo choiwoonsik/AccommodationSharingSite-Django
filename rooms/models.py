@@ -19,7 +19,7 @@ class AbstractItem(core_models.TimeStampedModel):
 
 class RoomType(AbstractItem):
 
-    """ RoomType Obejct Definition """
+    """ RoomType Object Definition """
 
     pass
 
@@ -110,7 +110,6 @@ class Room(core_models.TimeStampedModel):
     def total_rating(self):
         all_reviews = self.reviews.all()
         all_rating = 0
-        length = 1
         for review in all_reviews:
             all_rating += review.rating_average()
         if all_rating == 0:

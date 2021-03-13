@@ -807,3 +807,136 @@ class RoomDetail(DetailView):
 // urls.py 
 urlpatterns = [path("<int:pk>", views.RoomDetail.as_view(), name="detail")]
 ```
+
+### [애플리케이션 form]
+
+search 기능구현을 위해 form을 사용해본다
+
+- views.py
+
+```python
+def search(requset):
+    city = requset.GET.get("city")
+    print(str.capitalize(city))
+    return render(requset, "rooms/search.html", context={"city": city})
+```
+
+- header.html - 헤더에 입력을위한 form생성, 입력값은 city명으로 받음
+
+```java
+<form method="get" action="{% url "rooms:search" %}">
+    <input name="**city**" placeholder="Search by City"/>
+</form>
+```
+
+- search.html
+
+```html
+{%  extends "base.html" %}
+
+{% block page_title %}
+    Search
+{% endblock %}
+
+{% block content %}
+    <h2>Search!</h2>
+
+    <h4>Searching by {{ **city** }}</h4>
+{% endblock %}
+```
+
+- views.py - filter부분
+
+```java
+
+filter_args = {}
+
+if city != "Anywhere":
+    filter_args["city__startswith"] = city
+
+filter_args["country"] = country
+
+if room_type != 0:
+    filter_args["room_type__pk"] = room_type
+
+if price != 0:
+    filter_args["price__lte"] = price
+
+if len(s_amenities) > 0:
+      for s_amenity in s_amenities:
+          filter_args["amenities__pk"] = int(s_amenity)
+
+if len(s_facilities) > 0:
+    for s_facility in s_facilities:
+        filter_args["facilities__pk"] = int(s_facility)
+
+rooms = models.Room.objects.filter(**filter_args)
+
+return render(request, "rooms/search.html", context={
+    **form, **choices, "rooms": rooms,
+})
+```
+
+위와 같이 filter를 설정할 수 있다
+
+### Django를 이용하여 Form API 사용하기
+
+search.html
+
+```java
+% block content %}
+    <h2>Search!</h2>
+    <form method="get" action="{% url "rooms:search" %}">
+        **{{ form.as_p }}**
+        <button>Search</button>
+    </form>
+
+    <h3>Results</h3>
+
+    {% for room in rooms %}
+        <h3>{{ room.name }}</h3>
+    {% endfor %}
+
+{% endblock %}
+```
+
+views.py
+
+```java
+def search(request):
+
+    form = forms.SearchForm(request.GET)
+
+    return render(request, "rooms/search.html", {"form": form})
+```
+
+- request.GET을 forms.SearchForm의 매개변수로 넣게 되면 골랐던, 입력했던 모든 값들을 기억해서 유지시켜준다
+
+forms.py ← 새로 생성한 파일, Form API를 사용하기위해 생성
+
+```java
+class SearchForm(forms.Form):
+
+    city = forms.CharField(initial="Anywhere")
+    country = CountryField(default="KR").formfield()
+    room_type = forms.ModelChoiceField(
+        required=False, empty_label="Any kind", queryset=models.RoomType.objects.all()
+    )
+    price = forms.IntegerField(required=False)
+    guests = forms.IntegerField(required=False)
+    bedrooms = forms.IntegerField(required=False)
+    beds = forms.IntegerField(required=False)
+    baths = forms.IntegerField(required=False)
+    instant_book = forms.BooleanField(required=False)
+    superhost = forms.BooleanField(required=False)
+    amenities = forms.ModelMultipleChoiceField(
+        required=False,
+        queryset=models.Amenity.objects.all(),
+        widget=forms.CheckboxSelectMultiple(),
+    )
+    facilities = forms.ModelMultipleChoiceField(
+        required=False,
+        queryset=models.Facility.objects.all(),
+        widget=forms.CheckboxSelectMultiple(),
+    )
+```

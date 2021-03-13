@@ -1,8 +1,8 @@
 {% extends "base.html" %} 
 
-{% block page_name %}
-  Home
-{% endblock page_name %}
+{% block page_title %}
+  {{ room.name }}
+{% endblock %}
 
 {% block content %}
 
@@ -14,10 +14,10 @@
     <div>
         <h2>HOST NAME : {{ room.host.username }}</h2>
             {% if room.host.superhost %}
-                <h4>(SUPERHOST)</h4>
+                <h4>SUPER HOST</h4>
                 {% else %}
-                <h4>(NOT SUPERHOST)</h4>
-            {% endif %}
+                <h4>NOT SUPER HOST</h4>
+            {% endif %}2
         <h3>
             AMENITIES
         </h3>
