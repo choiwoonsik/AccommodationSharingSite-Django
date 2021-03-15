@@ -940,3 +940,348 @@ class SearchForm(forms.Form):
         widget=forms.CheckboxSelectMultiple(),
     )
 ```
+---
+## # 15 [USER LOGIN / LOGOUT]
+
+### {% csrf_token %}
+
+- POST request가 현재의 웹사이트에서 온것인지 확인한다
+
+Cross Site Request Forgery - 사이트 간 요청 위조를 방지하기 위한 토큰값으로 CSRF는 사용자가 자신의 의지와는 무관하게 공격자가 의도한 행위(수정, 삭제, 등록 등)을 특정 웹사이트에 요청하게 하는 공격이다
+
+이 공격은 특정 웹사이트(예를 들어 구글, 페이스북)등 대표적인 사이트에 대해 사용자의 웹브라우저를 신용하는 상태를 노린 것이다. 일단 사용자가 웹사이트에 로그인한 상태에서 CSRF 공격 코드가 삽입된 페이지를 열게되면 공격 대상이 되는 웹사이트는 위조된 공격 명령이 믿을수 있는 사용자(브라우저)로부터 발송된 것으로 판단하므로 공격에 노출이된다
+
+따라서 토큰값을 비교해서 현재사이트에서 자신의(공격대상 사이트) 사이트에 로그인하는 것인지 확인하는 것이다
+
+### 공격과정
+
+1. 이용자가 웹사이트에 로그인하여 정상적인 **쿠키**를 발급받는다
+2. 공격자는 공격 코드가 담긴 링크를 이용자에게 전달한다
+3. 공격용 코드는 공격 예시로 공격 링크가 담긴 이미지태그 값을 갖고있고, 이용자가 페이지를 열면 브라우저는 이미지 파일을 가져오기 위해 이미지 링크를 열게된다
+4. 그렇게 이용자의 승인이나 인지없이 출발지와 도착지가 등록되어 공격이 완료된다
+
+따라서 이를 방지하기 위해 사용자가 서버에 작업을 요청할 때 토큰값이 같이 서버로 전송되고, 서버는 이 토큰값이 기존 값과 동일한지 확인하게 된다. 이후 새로운 뷰 페이지를 발행할 때마다 토큰 값을 새로 생성한다
+
+### views.py - LoginView class
+
+```python
+class LoginView(View):
+
+    def get(self, request):
+        form = forms.LoginForm(initial={"email": "dnstlr2933@naver.com"})
+        return render(request, "users/login.html", {"form": form})
+
+    def post(self, request):
+
+        form = forms.LoginForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+        return render(request, "users/login.html", {"form": form})
+```
+
+로그인시 아이디, 비밀번호를 받는 view를 생성하는데, forms.py에서 clean 메소드를 통해 확인된 아이디와 비밀번호를 가져온다
+
+### forms.py - LoginForm(forms.Form)
+
+```python
+class LoginForm(forms.Form):
+
+    email = forms.EmailField()
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    # 변수를 확인하고 싶은 함수를 생성시 clean_변수명()으로 해야한다 - 장고규칙
+    # 아니면 명명하지 않고 통합으로 할수도 있다
+    # return 값을 주지 않으면 지워버린다
+    def clean(self):
+
+        email = self.cleaned_data.get("email")
+        password = self.cleaned_data.get("password")
+        try:
+            user = models.User.objects.get(email=email)
+            if user.check_password(password):
+                return self.cleaned_data
+            else:
+                self.add_error("password", forms.ValidationError("Password is wrong"))
+        except models.User.DoesNotExist:
+            self.add_error("email", forms.ValidationError("User does not exist"))
+```
+
+clean함수를 사용했다면 꼭! 반환값으로 cleaned_data를 줘야한다
+
+먼저 email을 통해 유저가 존재유무를 판단하고 이후 clean함수의 check_password()를 통해 비밀번호가 맞는지 확인 후 해당 정보를 반환하게 된다
+
+> 로그인, 로그아웃 구현 (1)
+
+장고의 authentication, login, logout을 이용하여 구현하는 방법이다
+
+`from django.contrib.auth import authenticate, login, logout`
+
+**urls.py**
+
+- 먼저 url을 생성한다
+
+```python
+from django.urls import path
+from . import views
+
+app_name = "users"
+
+urlpatterns = [path("login/", views.LoginView.as_view(), name="login"),
+               path("logout/", views.log_out, name="logout"),
+               ]
+```
+
+**views.py**
+
+- 해당 url에서 보여줄 템플릿을 위한 view를 생성한다
+
+```python
+from django.views import View
+from django.shortcuts import render, redirect, reverse
+from django.contrib.auth import authenticate, login, logout
+from . import forms
+
+class LoginView(View):
+
+    def get(self, request):
+        form = forms.LoginForm(initial={"email": "dnstlr2933@naver.com"})
+        return render(request, "users/login.html", {"form": form})
+
+    def post(self, request):
+        form = forms.LoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get("email")
+            password = form.cleaned_data.get("password")
+            user = **authenticate**(request, username=email, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect(reverse("core:home"))
+        return render(request, "users/login.html", {"form": form})
+
+def log_out(request):
+
+    logout(request)
+    return redirect(reverse("core:home"))
+```
+
+로그인을 위한 LoginView 클래스와 로그아웃을 위한 log_out()함수를 생성했다
+
+logout 함수가 이미 내장되어있으므로 요청값만 추면 알아서 처리가 된다
+
+**forms.py**
+
+- 로그인의 값을 처리하기 위한 form을 생성한다
+- 여기서는 값을 미리 확인하기위해 clean함수를 사용
+
+```python
+from django import forms
+from . import models
+
+class LoginForm(forms.Form):
+
+    email = forms.EmailField()
+    password = forms.CharField(widget=forms.PasswordInput)
+
+    # 변수를 확인하고 싶은 함수를 생성시 clean_변수명()으로 해야한다 - 장고규칙
+    # 아니면 명명하지 않고 통합으로 할수도 있다
+    # return 값을 주지 않으면 지워버린다
+    def clean(self):
+
+        email = self.cleaned_data.get("email")
+        password = self.cleaned_data.get("password")
+        try:
+            user = models.User.objects.get(email=email)
+            if user.check_password(password):
+                return self.cleaned_data
+            else:
+                self.add_error("password", forms.ValidationError("Password is wrong"))
+        except models.User.DoesNotExist:
+            self.add_error("email", forms.ValidationError("User does not exist"))
+```
+
+self.add_errer()를 통해 내가 원하는 에러를 만들수 있다. 특정 타겟에 대한 에러만을 처리한다
+
+> 로그인, 로그아웃 구현 (2) - FormView를 이용한 구현 방법
+
+FormView를 이용하여 LoginView class를 구현하는 경우이다
+
+**views.py**
+
+- forms.py, urls.py 부분은 동일하고 views.py 만 수정하면 된다
+
+```python
+from django.views.generic import **FormView**
+from django.shortcuts import redirect, reverse
+from django.urls import **reverse_lazy**
+from django.contrib.auth import authenticate, login, logout
+from . import forms
+
+class LoginView(**FormView**):
+
+    template_name = "users/login.html"
+    form_class = forms.LoginForm
+    success_url = **reverse_lazy**("core:home")
+
+    def form_valid(self, form):
+        email = form.cleaned_data.get("email")
+        password = form.cleaned_data.get("password")
+        user = authenticate(self.request, username=email, password=password)
+        if user is not None:
+            login(self.request, user)
+        return super().form_valid(form)
+
+def log_out(request):
+
+    logout(request)
+    return redirect(reverse("core:home"))
+```
+
+먼저 reverse_lazy를 사용해서 reverse를 통한 url 변환을 즉시 하지 않도록 했다. 이후 로그인시 (즉 필요할때) url을 변환해서 가져오도록 설정한 것
+
+또한 FromView를 사용해서 get(), post()를 따로 사용하지 않고도 로그인, 로그아웃이 가능하게 되었다. 
+템플릿 파일은 users/login.html, 받은 값을 처리하는 건 forms.LoginForm, 로그인 후 redirect되는 url은reverse_lazy를 통한 core:home으로 설정했다
+
+form의 값이 맞는지 확인하는 부분은 form_valid()를 사용해서 처리하게 된다
+
+---
+
+## #15 [SIGN UP]
+
+> SIGNUP (1) - FormView를 이용한 구현 방법
+
+회원가입을 위한 기능
+
+**urls.py**
+
+```python
+from django.urls import path
+from . import views
+
+app_name = "users"
+
+urlpatterns = [path("login/", views.LoginView.as_view(), name="login"),
+               path("logout/", views.log_out, name="logout"),
+               path("signup/", views.SignUpView.as_view(), name="signup"),
+               ]
+```
+
+- 우선 회원가입을 위한 url을 생성해준다
+- 이후 해당 url을 처리할 SignUpView 클래스를 생성
+
+**views.py**
+
+```python
+class SignUpView(FormView):
+
+    template_name = "users/signup.html"
+    form_class = forms.SignUpForm
+    success_url = reverse_lazy("core:home")
+    initial = {
+        "first_name": "woonsik",
+        "last_name": "choi",
+        "email": "dnstlr2933@naver.com",
+    }
+
+    def form_valid(self, form):
+
+        # forms.py에서 만든 save() 함수
+        form.save()
+        email = form.cleaned_data.get("email")
+        password = form.cleaned_data.get("password")
+        user = authenticate(self.request, username=email, password=password)
+        if user is not None:
+            login(self.request, user)
+        return super().form_valid(self)
+```
+
+- 회원가입을 하기위한 form을 위해 forms.py에 SignUpForm을 생성 후 이용
+- form_vailid()를 통해서 적절한 값들이 왔는지 확인하고 이 후 User에서 맞는 user를 찾아서 반환하고 해당 user로 로그인 시킨다
+- 즉, 회원가입을 form에서 하고 해당 값들을 가진 유저가 존재한다면 로그인을 진행하게 된다
+
+**forms.py**
+
+```python
+class SignUpForm(forms.Form):
+
+    first_name = forms.CharField(max_length=10)
+    last_name = forms.CharField(max_length=10)
+    email = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)
+    password1 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        try:
+            models.User.objects.get(email=email)
+            raise forms.ValidationError("User already exists with that email")
+        except models.User.DoesNotExist:
+            return email
+
+    def clean_password1(self):
+        password = self.cleaned_data.get("password")
+        password1 = self.cleaned_data.get("password1")
+        if password != password1:
+            raise forms.ValidationError("Password confirmation does not match")
+        else:
+            return password
+
+    def save(self):
+
+        first_name = self.cleaned_data.get("first_name")
+        last_name = self.cleaned_data.get("last_name")
+        email = self.cleaned_data.get("email")
+        password = self.cleaned_data.get("password")
+
+        # 비밀번호를 암호화한 user 생성
+        user = models.User.objects.**create_user**(username=email, email=email, password=password)
+        user.first_name = first_name
+        user.last_name = last_name
+				user.save()
+```
+
+회원가입을 진행하기위한 SignUpForm 클래스이다
+
+- 유저 생성에 필요한 모든 값들을 받기 위한 field를 생성하여 받는다
+- 이후, 순서대로 해당 값들에 대해 clean_OOO을 통해 값들이 맞는지 확인한다
+- 모든 절차가 끝나면 save()를 하는데 이때, 비밀번호를 암호화한 유저객체를 생성하기 위해 create_user()로 생성해준다
+
+> SIGNUP (2) - forms.py ModelForm를 이용한 구현
+
+**forms.py**
+
+```python
+from django import forms
+
+class SignUpForm(forms.**ModelForm**):
+
+    class Meta:
+        model = models.User
+        fields = ("first_name", "last_name", "email")
+
+    birthdate = forms.DateField(initial="1900-00-00", help_text="1900-01-01")
+    password = forms.CharField(widget=forms.PasswordInput)
+    password1 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
+
+    # ModelForm을 사용함으로서 fields에 지정만 해주면 알아서 clean_data로 생성해준다
+
+    def clean_password1(self):
+        password = self.cleaned_data.get("password")
+        password1 = self.cleaned_data.get("password1")
+        if password != password1:
+            raise forms.ValidationError("Password confirmation does not match")
+        else:
+            return password
+
+    def save(self, *args, **kwargs):
+        user = super().save(commit=False)
+        email = self.cleaned_data.get("email")
+        password = self.cleaned_data.get("password")
+        birthdate = self.cleaned_data.get("birthdate")
+
+        user.username = email
+        user.birthdate = birthdate
+        user.set_password(password)
+        user.save()
+```
+
+class Meta를 사용해서 더욱 쉽게 fields를 생성할 수 있다
