@@ -138,3 +138,15 @@ AUTH_USER_MODEL = "users.User"
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 
 MEDIA_URL = "/media/"  # '/'를 앞에 추가함으로서 root에서 바로 media로 접근하게 된다 -> http://127.0.0.1:8000/media/room_photos/???.jpg
+
+# Email Configuration
+
+EMAIL_HOST = "smtp.mailgun.org"
+
+EMAIL_PORT = "587"
+
+EMAIL_HOST_USER = os.environ.get("MAILGUN_USERNAME")
+
+EMAIL_HOST_PASSWORD = os.environ.get("MAILGUN_PASSWORD")
+
+EMAIL_FROM = "no_reply@sandbox8a1685fa33ee48a59844ac20391e9fb4.mailgun.org"
