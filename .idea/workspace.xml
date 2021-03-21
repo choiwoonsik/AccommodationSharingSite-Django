@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="b8dabd80-299a-4e17-8707-eac92c7cd321" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/reservations/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/emails/verify_email.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/migrations/0002_auto_20210317_2035.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/migrations/0003_auto_20210317_2058.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/scss/styles.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gulpfile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/partials/social_login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/migrations/0004_user_login_method.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pipfile" beforeDir="false" afterPath="$PROJECT_DIR$/Pipfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pipfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Pipfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lists/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/lists/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lists/migrations/0002_list_rooms.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lists/migrations/0003_list_user.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reviews/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/reviews/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reviews/migrations/0002_review_room.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/reviews/migrations/0003_review_user.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/migrations/0002_auto_20210223_1654.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/users/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/users/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/signup.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models.py" afterDir="false" />
@@ -76,6 +73,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Shell Script" />
   </component>
   <component name="RecentsManager">
@@ -122,7 +120,8 @@
       <workItem from="1614930026576" duration="18298000" />
       <workItem from="1615257916542" duration="38711000" />
       <workItem from="1615635701750" duration="28761000" />
-      <workItem from="1615978858299" duration="9835000" />
+      <workItem from="1615978858299" duration="12299000" />
+      <workItem from="1616156643018" duration="28433000" />
     </task>
     <servers />
   </component>

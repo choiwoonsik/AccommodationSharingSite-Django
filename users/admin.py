@@ -29,6 +29,7 @@ class CustomerUserAdmin(UserAdmin):
                     "language",
                     "currency",
                     "superhost",
+                    "login_method",
                 )
             },
         ),
@@ -51,6 +52,7 @@ class CustomerUserAdmin(UserAdmin):
         "first_name",
         "last_name",
         "email",
+        "login_method",
         "is_active",
         "language",
         "currency",
