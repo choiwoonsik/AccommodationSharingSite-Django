@@ -11,9 +11,9 @@ class HomeView(ListView):
     """ HomeView Definition """
 
     model = models.Room
-    paginate_by = 5
+    paginate_by = 8
     ordering = "name"
-    paginate_orphans = 2
+    paginate_orphans = 4
     page_kwarg = "page"
     context_object_name = "rooms"
 
@@ -99,14 +99,16 @@ class SearchView(View):
 
                 rooms = paginator.get_page(page)
 
-                return render(request, "rooms/search.html", {
-                    "form": form,
-                    "rooms": rooms,
-                })
+                return render(
+                    request,
+                    "rooms/search.html",
+                    {
+                        "form": form,
+                        "rooms": rooms,
+                    },
+                )
 
         else:
             form = forms.SearchForm()
 
-        return render(request, "rooms/search.html", {
-            "form": form
-        })
+        return render(request, "rooms/search.html", {"form": form})

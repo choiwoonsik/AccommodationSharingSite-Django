@@ -117,3 +117,7 @@ class Room(core_models.TimeStampedModel):
         else:
             length = len(all_reviews)
             return round(all_rating / length, 2)
+
+    def first_photo(self):
+        photo, = self.photos.all()[:1]
+        return photo.file.url

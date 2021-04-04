@@ -30,6 +30,7 @@ class CustomerUserAdmin(UserAdmin):
                     "currency",
                     "superhost",
                     "login_method",
+                    "email_verified",
                 )
             },
         ),

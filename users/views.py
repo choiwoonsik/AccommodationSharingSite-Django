@@ -46,13 +46,8 @@ class SignUpView(FormView):
         user = authenticate(self.request, username=email, password=password)
         if user is not None:
             login(self.request, user)
-        user.verify_email()
-        try:
-            user = models.User.objects.get(email=email)
-            if user.email_verified is False:
-                logout(self.request)
-        except Exception:
-            raise Exception
+        # user.verify_email()
+        user.email_verified = True
         return super().form_valid(form)
 
 
