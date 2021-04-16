@@ -1,17 +1,19 @@
 import os
 import requests
-from django.views.generic import FormView
+from django.views.generic import FormView, DetailView, UpdateView
 from django.shortcuts import redirect, reverse
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.views import PasswordChangeView
 from django.core.files.base import ContentFile
-from . import forms, models
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
+from . import forms, models, mixins
 
 
-class LoginView(FormView):
+class LoginView(mixins.LoggedOutOnlyView, FormView):
     template_name = "users/login.html"
     form_class = forms.LoginForm
-    success_url = reverse_lazy("core:home")
 
     def form_valid(self, form):
         email = form.cleaned_data.get("email")
@@ -27,13 +29,21 @@ class LoginView(FormView):
                 login(self.request, user)
         return super().form_valid(form)
 
+    def get_success_url(self):
+        next_arg = self.request.GET.get("next")
+        if next_arg is not None:
+            return next_arg
+        else:
+            return reverse("core:home")
+
 
 def log_out(request):
+    messages.info(request, f"See you later {request.user.first_name}")
     logout(request)
     return redirect(reverse("core:home"))
 
 
-class SignUpView(FormView):
+class SignUpView(mixins.LoggedOutOnlyView, FormView):
     template_name = "users/signup.html"
     form_class = forms.SignUpForm
     success_url = reverse_lazy("core:home")
@@ -117,7 +127,7 @@ def github_callback(request):
                             user = models.User.objects.get(email=email)
                             if user.login_method != models.User.LOGIN_GITHUB:
                                 # Already signup with Email or Kakao
-                                raise GithubException()
+                                raise GithubException(f"Please login with : {user.login_method}")
                         except models.User.DoesNotExist:
                             # case2: User is None (No that user) -> Create the User
                             user = models.User.objects.create(
@@ -128,17 +138,18 @@ def github_callback(request):
                             user.set_unusable_password()
                             user.save()
                         login(request, user)
+                        messages.success(request, f"Welcome back {user.first_name}")
                         return redirect(reverse("core:home"))
                     else:
-                        raise GithubException()
+                        raise GithubException("Can't get your profile")
                 else:
-                    raise GithubException()
+                    raise GithubException("Can't get Access code")
             else:
-                raise GithubException()
+                raise GithubException("Error occurred")
         else:
-            raise GithubException()
-    except GithubException:
-        # send error message
+            raise GithubException("Can't get Code")
+    except GithubException as e:
+        messages.error(request, e)
         return redirect(reverse("users:login"))
 
 
@@ -177,7 +188,7 @@ def kakao_callback(request):
 
                 # 이메일이 없다면 로그인 불가
                 if email is None:
-                    raise KakaoException()
+                    raise KakaoException("Please also give me email")
                 else:
                     profile = kakao_account.get("profile")
                     profile_image = profile.get("profile_image_url")
@@ -187,7 +198,7 @@ def kakao_callback(request):
                         user = models.User.objects.get(email=email)
                         if user.login_method != models.User.LOGIN_KAKAO:
                             # 해당 이메일이 이미 카톡이 아닌 다른 걸로 로그인 한 경우
-                            raise KakaoException()
+                            raise KakaoException(f"Please log in with :{user.login_method}")
                     except models.User.DoesNotExist:
                         # 이메일이 없다면 해당 이메일로 계정 생성, 저장 후 로그인
                         user = models.User.objects.create(
@@ -205,10 +216,77 @@ def kakao_callback(request):
                                 f"{nickname}-avatar", ContentFile(photo_request.content)
                             )
                     login(request, user)
+                    messages.success(request, f"Welcome back {user.first_name}")
                     return redirect(reverse("core:home"))
             else:
-                raise KakaoException()
+                raise KakaoException("Can't get Authorization code")
         else:
-            raise KakaoException()
-    except KakaoException:
+            raise KakaoException("something went wrong")
+    except KakaoException as e:
+        messages.error(request, e)
         return redirect(reverse("users:login"))
+
+
+class UserProfileView(DetailView):
+    model = models.User
+    context_object_name = 'user_obj'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+class UpdatePasswordView(
+    mixins.LoggedInOnlyView,
+    mixins.EmailLoginOnlyView,
+    SuccessMessageMixin,
+    PasswordChangeView
+):
+
+    template_name = "users/update-password.html"
+    success_message = "Password Updated"
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class=form_class)
+        form.fields['old_password'].widget.attrs = {"placeholder": "Current password"}
+        form.fields['new_password1'].widget.attrs = {"placeholder": "Change password"}
+        form.fields['new_password2'].widget.attrs = {"placeholder": "Confirm password"}
+        return form
+
+    def get_success_url(self):
+        return self.request.user.get_absolute_url()
+
+
+class UpdateProfileView(
+    mixins.LoggedInOnlyView,
+    SuccessMessageMixin,
+    UpdateView
+):
+
+    model = models.User
+    template_name = "users/update-profile.html"
+    fields = (
+        "first_name",
+        "last_name",
+        "gender",
+        "bio",
+        "birthdate",
+        "language",
+        "currency",
+    )
+    success_message = "Profile Updated"
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class=form_class)
+        form.fields['first_name'].widget.attrs = {"placeholder": "First Name"}
+        form.fields['last_name'].widget.attrs = {"placeholder": "Last Name"}
+        form.fields['gender'].widget.attrs = {"placeholder": "Gender"}
+        form.fields['bio'].widget.attrs = {"placeholder": "bio"}
+        form.fields['birthdate'].widget.attrs = {"placeholder": "Birthdate (1990-01-01)"}
+        form.fields['language'].widget.attrs = {"placeholder": "Language"}
+        form.fields['currency'].widget.attrs = {"placeholder": "Currency"}
+        return form
+
