@@ -1,5 +1,3 @@
-# Accommodation Sharing Web App
-
 # **Accommodation Sharing Site**
 
 ### **[DESCRIPTION]**
