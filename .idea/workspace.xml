@@ -5,20 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8dabd80-299a-4e17-8707-eac92c7cd321" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/mixins/user_avatar.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/partials/message.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/users/update-password.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/users/update-profile.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/users/user_detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/mixins.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/mixins/room/room_form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/mixins/room/room_input.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/rooms/photo_create.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/rooms/photo_edit.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/rooms/room_create.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/rooms/room_edit.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/rooms/room_photos.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/scss/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/mixins/auth/auth_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mixins/auth/auth_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/mixins/user_avatar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mixins/user_avatar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partials/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/footer.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/partials/nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/nav.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/rooms/room_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rooms/room_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/users/update-profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/update-profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/users/user_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/user_detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
     </list>
@@ -150,6 +158,12 @@
       <workItem from="1617010659123" duration="6385000" />
       <workItem from="1617199705012" duration="26659000" />
       <workItem from="1617891909927" duration="12600000" />
+      <workItem from="1618559468366" duration="10748000" />
+      <workItem from="1619013494810" duration="3238000" />
+      <workItem from="1619610774865" duration="10373000" />
+      <workItem from="1619759043349" duration="11539000" />
+      <workItem from="1620910634381" duration="3495000" />
+      <workItem from="1620965994701" duration="20854000" />
     </task>
     <servers />
   </component>

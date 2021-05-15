@@ -1,0 +1,13 @@
+<div class="input h-full {% if field.errors %} has_error {% endif %}">
+    <span>
+        {{ field.label }}
+    </span>
+    <div>
+        {{ field }}
+    </div>
+    {% if field.errors %}
+        {% for error in field.errors %}
+            <span class="text-red-700 font-medium text-sm">{{ error }}</span>
+        {% endfor %}
+    {% endif %}
+</div>
