@@ -27,13 +27,19 @@
             </div>
         </div>
 
-    <div class="items-center">
-    <div><span class="text-2xl font-bold">Results</span></div>
+    <div class="items-center text-center">
+        <div>
+            <span class="text-2xl font-bold">{% trans "Results" %}</span>
+        </div>
         <div class="container lg:w-2/3 md:w-1/2 mx-auto my-4 p-4 flex text-sm items-center border border-gray-400">
+            {% if rooms is None %}
+                <span class="text-lg font-base">{% trans "No Matching Rooms.." %}</span>
+            {% else %}
+                {% for room in rooms %}
+                    {% include 'mixins/room_card.html' with room=room %}
+                {% endfor %}
+            {% endif %}
 
-                    {% for room in rooms %}
-                        {% include 'mixins/room_card.html' with room=room %}
-                    {% endfor %}
         </div>
     </div>
 

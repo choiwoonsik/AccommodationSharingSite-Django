@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-24 23:37+0900\n"
+"POT-Creation-Date: 2021-05-24 23:56+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -174,11 +174,11 @@ msgstr "제한없음"
 msgid "Max Price ($)"
 msgstr "최대 가격 (달러)"
 
-#: rooms/forms.py:24 rooms/views.py:170
+#: rooms/forms.py:24 rooms/views.py:177
 msgid "caption"
 msgstr "주석"
 
-#: rooms/forms.py:25 rooms/views.py:171
+#: rooms/forms.py:25 rooms/views.py:178
 msgid "file"
 msgstr "파일"
 
@@ -242,23 +242,23 @@ msgstr "욕조"
 msgid "instant_book"
 msgstr "즉시예약"
 
-#: rooms/views.py:143
+#: rooms/views.py:150
 msgid "Can't delete that photo"
 msgstr "해당 사진을 지울 수 없습니다"
 
-#: rooms/views.py:146
+#: rooms/views.py:153
 msgid "Photo Deleted"
 msgstr "제거"
 
-#: rooms/views.py:158
+#: rooms/views.py:165
 msgid "Photo Updated"
 msgstr "사진 수정"
 
-#: rooms/views.py:178
+#: rooms/views.py:185
 msgid "Photo Uploaded"
 msgstr "사진 업로드"
 
-#: rooms/views.py:192
+#: rooms/views.py:199
 msgid "Room Created"
 msgstr "방 생성"
 
@@ -545,6 +545,14 @@ msgstr "방 수정으로 되돌아가기"
 msgid "Search for the Room You want"
 msgstr "원하시는 방을 검색하세요"
 
+#: templates/rooms/search.html:32
+msgid "Results"
+msgstr "검색 결과"
+
+#: templates/rooms/search.html:36
+msgid "No Matching Rooms.."
+msgstr "검색결과에 맞는 방이 없습니다.."
+
 #: templates/users/login.html:5
 msgid "Login"
 msgstr "로그인"
@@ -748,6 +756,9 @@ msgstr "이름"
 #: users/views.py:292
 msgid "Birthdate (1990-01-01)"
 msgstr "생일 (0000-00-00)"
+
+#~ msgid "No Search Result.."
+#~ msgstr "조건에 맞는 방이 없습니다.."
 
 #~ msgid "Search by City"
 #~ msgstr "도시로 검색"

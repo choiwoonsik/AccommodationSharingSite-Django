@@ -74,7 +74,10 @@ class SearchView(View):
 
                 page = request.GET.get("page", 1)
 
-                rooms = paginator.get_page(page)
+                if rooms.count() == 0:
+                    rooms = None
+                else:
+                    rooms = paginator.get_page(page)
 
                 return render(
                     request,
@@ -88,7 +91,11 @@ class SearchView(View):
         else:
             form = forms.SearchForm()
 
-        return render(request, "rooms/search.html", {"form": form})
+        return render(request, "rooms/search.html",
+                      {
+                        "form": form,
+                        "rooms": None,
+                        })
 
 
 class EditRoomView(user_mixins.LoggedInOnlyView, UpdateView):

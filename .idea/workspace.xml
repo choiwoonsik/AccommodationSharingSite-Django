@@ -6,23 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b8dabd80-299a-4e17-8707-eac92c7cd321" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/scss/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/styles.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/locale/ko/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/locale/ko/LC_MESSAGES/django.po" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/management/commands/seed_amenities.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/management/commands/seed_amenities.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/management/commands/seed_rooms.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/management/commands/seed_rooms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/management/commands/seed_roomtypes.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/management/commands/seed_roomtypes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rooms/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/home.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/img/logo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/copyrights/copyright.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/copyrights/copyright.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/mixins/room/room_input.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mixins/room/room_input.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partials/nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/nav.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/rooms/room_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rooms/room_detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/rooms/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rooms/search.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/forms.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,7 +148,7 @@
       <workItem from="1620910634381" duration="3495000" />
       <workItem from="1620965994701" duration="39023000" />
       <workItem from="1621151950345" duration="37327000" />
-      <workItem from="1621655278169" duration="77386000" />
+      <workItem from="1621655278169" duration="78476000" />
     </task>
     <servers />
   </component>
