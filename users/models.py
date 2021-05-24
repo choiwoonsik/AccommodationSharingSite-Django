@@ -1,10 +1,13 @@
 from django.contrib.auth.models import AbstractUser
+from django.utils.translation import gettext_lazy as _
 from django.db import models
 from django.core.mail import send_mail
 from django.conf import settings
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
+from core.models import TimeStampedModel
 from django.shortcuts import reverse
+from core import managers as core_managers
 import uuid
 
 
@@ -18,25 +21,25 @@ class User(AbstractUser):
     GENDER_OTHER = "other"
 
     GENDER_CHOICES = (
-        (GENDER_MALE, "Male"),
-        (GENDER_FEMALE, "Female"),
-        (GENDER_OTHER, "Other"),
+        (GENDER_MALE, _("Male")),
+        (GENDER_FEMALE, _("Female")),
+        (GENDER_OTHER, _("Other")),
     )
 
     LANGUAGE_ENGLISH = "en"
     LANGUAGE_KOREAN = "ko"
 
     LANGUAGE_CHOICES = (
-        (LANGUAGE_ENGLISH, "English"),
-        (LANGUAGE_KOREAN, "Korean"),
+        (LANGUAGE_ENGLISH, _("English")),
+        (LANGUAGE_KOREAN, _("Korean")),
     )
 
     CURRENCY_USD = "usd"
     CURRENCY_KRW = "krw"
 
     CURRENCY_CHOICES = (
-        (CURRENCY_USD, "USD"),
-        (CURRENCY_KRW, "KRW"),
+        (CURRENCY_USD, _("USD")),
+        (CURRENCY_KRW, _("KRW")),
     )
 
     LOGIN_EMAIL = "email"
@@ -44,21 +47,22 @@ class User(AbstractUser):
     LOGIN_KAKAO = "kakao"
 
     LOGIN_CHOICES = (
-        (LOGIN_EMAIL, "Email"),
-        (LOGIN_GITHUB, "Github"),
-        (LOGIN_KAKAO, "Kakao"),
+        (LOGIN_EMAIL, _("Email")),
+        (LOGIN_GITHUB, _("Github")),
+        (LOGIN_KAKAO, _("Kakao")),
     )
 
-    avatar = models.ImageField(upload_to="avatars", blank=True)
-    gender = models.CharField(choices=GENDER_CHOICES, max_length=10, default=GENDER_MALE)
-    bio = models.TextField(blank=True)
-    birthdate = models.DateField(blank=True, null=True)
-    language = models.CharField(choices=LANGUAGE_CHOICES, max_length=2, default=LANGUAGE_KOREAN)
-    currency = models.CharField(choices=CURRENCY_CHOICES, max_length=3, default=CURRENCY_KRW)
-    superhost = models.BooleanField(default=False)
-    email_verified = models.BooleanField(default=False)
-    email_secret = models.CharField(max_length=6, default="", blank=True)
-    login_method = models.CharField(max_length=50, choices=LOGIN_CHOICES, default=LOGIN_EMAIL)
+    avatar = models.ImageField(_('avatar'), upload_to="avatars", blank=True)
+    gender = models.CharField(_('gender'), choices=GENDER_CHOICES, max_length=10, default=GENDER_MALE)
+    bio = models.TextField(_('bio'), blank=True)
+    birthdate = models.DateField(_('birthdate'), blank=True, null=True)
+    language = models.CharField(_('language'), choices=LANGUAGE_CHOICES, max_length=2, default=LANGUAGE_KOREAN)
+    currency = models.CharField(_('currency'), choices=CURRENCY_CHOICES, max_length=3, default=CURRENCY_KRW)
+    superhost = models.BooleanField(_('superhost'), default=False)
+    email_verified = models.BooleanField(_('email_verified'), default=False)
+    email_secret = models.CharField(_('email_secret'), max_length=6, default="", blank=True)
+    login_method = models.CharField(_('login_method'), max_length=50, choices=LOGIN_CHOICES, default=LOGIN_EMAIL)
+    # objects = core_managers.CustomModelManager()
 
     def get_absolute_url(self):
         return reverse("users:profile", kwargs={"pk": self.pk})
@@ -72,7 +76,7 @@ class User(AbstractUser):
                 {'secret': secret},
             )
             send_mail(
-                "Verify Airbnb Account",
+                _("Verify WooHome Account"),
                 strip_tags(html_message),
                 settings.EMAIL_FROM,
                 [self.email],
@@ -81,3 +85,4 @@ class User(AbstractUser):
             )
             self.save()
         return
+

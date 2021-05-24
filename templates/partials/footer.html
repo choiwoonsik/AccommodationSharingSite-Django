@@ -1,3 +1,18 @@
-<footer class="container mx-auto text-center py-10 border-t font-medium text-gray-400">
-    &copy; 2021 WooH, Inc. All rights reserved.
+{% load i18n %}
+<div class="container mx-auto text-center pt-4 border-t font-light text-gray-400 text-sm flex items-center px-6">
+    <div class="mr-8">
+        <a href="{% url "core:copyrights" %}">{% trans "copyright" %}</a>
+    </div>
+    <div>
+        {% get_current_language as LANGUAGE_CODE %}
+        <select class="w-full h-6" id="js-lang">
+            <option value="en" {% if LANGUAGE_CODE == 'en' %} selected {% endif %}>{% trans "English" %}</option>
+            <option value="ko" {% if LANGUAGE_CODE == 'ko' %} selected {% endif %}>{% trans "Korean" %}</option>
+        </select>
+    </div>
+</div>
+<footer class="container mx-auto text-center py-10 font-medium text-gray-400">
+    <div class="flex flex-col">
+        <span>&copy; 2021 WooHome, Inc. {% trans "All rights reserved" %}.</span>
+    </div>
 </footer>

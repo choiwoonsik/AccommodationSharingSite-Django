@@ -1,19 +1,36 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from core import models as core_models
+from django.core.validators import MinValueValidator, MaxValueValidator, MinLengthValidator
 
 
 class Review(core_models.TimeStampedModel):
 
     """ Review Model Definition """
 
-    review = models.TextField(max_length=80)
+    ONE = 1
+    TWO = 2
+    THR = 3
+    FOR = 4
+    FIV = 5
+
+    RATING_CHOICE = (
+        (ONE, "1"),
+        (TWO, "2"),
+        (THR, "3"),
+        (FOR, "4"),
+        (FIV, "5"),
+    )
+
     # 평가 항목
-    accuracy = models.IntegerField()
-    communication = models.IntegerField()
-    cleanliness = models.IntegerField()
-    location = models.IntegerField()
-    check_in = models.IntegerField()
-    value = models.IntegerField()
+    # accuracy = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    review = models.TextField(_("review"), max_length=80, validators=[MinLengthValidator(10)])
+    accuracy = models.IntegerField(_("accuracy"), choices=RATING_CHOICE, default=ONE)
+    communication = models.IntegerField(_("communication"), choices=RATING_CHOICE, default=ONE)
+    cleanliness = models.IntegerField(_("cleanliness"), choices=RATING_CHOICE, default=ONE)
+    location = models.IntegerField(_("location"), choices=RATING_CHOICE, default=ONE)
+    check_in = models.IntegerField(_("check_in"), choices=RATING_CHOICE, default=ONE)
+    value = models.IntegerField(_("value"), choices=RATING_CHOICE, default=ONE)
     user = models.ForeignKey(
         "users.User", related_name="reviews", on_delete=models.CASCADE
     )
@@ -36,3 +53,6 @@ class Review(core_models.TimeStampedModel):
         return round(avg, 2)
 
     rating_average.short_description = "average"
+
+    class Meta:
+        ordering = ('-created',)

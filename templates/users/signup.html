@@ -1,7 +1,8 @@
 {%  extends "base.html" %}
+{% load i18n %}
 
 {% block page_title %}
-    Sign Up
+    {% trans "Sign Up" %}
 {% endblock %}
 
 {% block search-bar %}
@@ -16,8 +17,8 @@
         {% include 'mixins/auth/auth_form.html' with form=form cta="Sign up" %}
 
         <div class="mt-5">
-            <span class="mr-2">Have an account?</span>
-            <a href="{% url "users:login" %}" class="text-green-500 font-medium">Log in</a>
+            <span class="mr-2">{% trans "Have an account?" %}</span>
+            <a href="{% url "users:login" %}" class="text-green-500 font-medium">{% trans "Log in" %}</a>
         </div>
 
     </div>

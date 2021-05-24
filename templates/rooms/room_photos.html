@@ -1,7 +1,8 @@
 {%  extends "base.html" %}
+{% load i18n %}
 
 {% block page_title %}
-    {{ room.name }}'s Photos
+    {{ room.name }}{% trans "'s Photos" %}
 {% endblock %}
 
 {% block search-bar %}
@@ -12,7 +13,7 @@
     <div class="container mx-auto my-10 flex flex-col items-center">
 
         <div class="my-10 w-4/5">
-            <a href="{% url "rooms:add-photo" room.pk %}" class="btn-link w-1/6 block">Upload Photo</a>
+            <a href="{% url "rooms:add-photo" room.pk %}" class="btn-link w-1/6 block">{% trans "Upload Photo" %}</a>
         </div>
 
         {% for photo in room.photos.all %}
@@ -22,14 +23,14 @@
                     <span class="ml-5 text-xl">{{ photo.caption }}</span>
                 </div>
                 <div class="flex flex-col w-1/5">
-                    <a class="btn-link mb-5 bg-green-500" href="{% url 'rooms:edit-photo' room.pk photo.pk %}">Edit</a>
-                    <a class="btn-link bg-red-600" href="{% url 'rooms:delete-photos' room.pk photo.pk %}">Delete</a>
+                    <a class="btn-link mb-5 bg-green-500" href="{% url 'rooms:edit-photo' room.pk photo.pk %}">{% trans "Edit" %}</a>
+                    <a class="btn-link bg-red-600" href="{% url 'rooms:delete-photos' room.pk photo.pk %}">{% trans "Delete" %}</a>
                 </div>
             </div>
         {% endfor %}
 
         <div class="flex justify-center">
-            <a href="{% url "rooms:edit" room.pk %}" class="text-green-500 font-medium font-2xl">Back to Edit room</a>
+            <a href="{% url "rooms:edit" room.pk %}" class="text-green-500 font-medium font-2xl">{% trans "Back to Edit room" %}</a>
         </div>
 
     </div>

@@ -1,11 +1,13 @@
 from django.db import models
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
 from django.urls import reverse
 from core import models as core_models
+from cal import Calendar
 
 
 class AbstractItem(core_models.TimeStampedModel):
-
     """ Abstract Item """
 
     name = models.CharField(max_length=20)
@@ -18,48 +20,43 @@ class AbstractItem(core_models.TimeStampedModel):
 
 
 class RoomType(AbstractItem):
-
     """ RoomType Object Definition """
 
     pass
 
     class Meta:
-        verbose_name = "Room Type"
+        verbose_name = _("Room Type")
         ordering = ["name"]
 
 
 class Amenity(AbstractItem):
-
-    """ Amenity Obejct Definition """
+    """ Amenity Object Definition """
 
     pass
 
     class Meta:
-        verbose_name_plural = "Amenities"
+        verbose_name_plural = _("Amenities")
 
 
 class Facility(AbstractItem):
-
     """ Facility Model Definition """
 
     pass
 
     class Meta:
-        verbose_name_plural = "Facilities"
+        verbose_name_plural = _("Facilities")
 
 
 class HouseRule(AbstractItem):
-
     """ HouseRule Model Definition """
 
     pass
 
     class Meta:
-        verbose_name = "House Rule"
+        verbose_name = _("House Rule")
 
 
 class Photo(core_models.TimeStampedModel):
-
     """ Photo Model Definition """
 
     caption = models.CharField(max_length=20)
@@ -71,28 +68,23 @@ class Photo(core_models.TimeStampedModel):
 
 
 class Room(core_models.TimeStampedModel):
-
     """ Room Model Definition """
 
-    name = models.CharField(max_length=25)  # 이름
-    description = models.TextField()  # 설명
-    country = CountryField()  # 나라
-    city = models.CharField(max_length=20)  # 도시
-    price = models.IntegerField()  # 가격
-    address = models.CharField(max_length=30)  # 주소
-    guests = models.IntegerField()  # 게스트
-    beds = models.IntegerField()  # 침대
-    bedrooms = models.IntegerField()  # 침실
-    baths = models.IntegerField()  # 화장실
-    check_in = models.TimeField()
-    check_out = models.TimeField()
-    instant_book = models.BooleanField(default=False)
-    host = models.ForeignKey(
-        "users.User", related_name="rooms", on_delete=models.CASCADE
-    )
-    room_type = models.ForeignKey(
-        "RoomType", related_name="rooms", on_delete=models.CASCADE
-    )
+    name = models.CharField(_("name"), max_length=25)  # 이름
+    description = models.TextField(_("description"), )  # 설명
+    country = CountryField(_("country"), )  # 나라
+    city = models.CharField(_("city"), max_length=20)  # 도시
+    price = models.IntegerField(_("price"), )  # 가격
+    address = models.CharField(_("address"), max_length=30)  # 주소
+    guests = models.IntegerField(_("guests"), )  # 게스트
+    beds = models.IntegerField(_("beds"), )  # 침대
+    bedrooms = models.IntegerField(_("bedrooms"), )  # 침실
+    baths = models.IntegerField(_("baths"), )  # 화장실
+    check_in = models.TimeField(_("check_in"), )
+    check_out = models.TimeField(_("check_out"), )
+    instant_book = models.BooleanField(_("instant_book"), default=False)
+    host = models.ForeignKey("users.User", related_name="rooms", on_delete=models.CASCADE)
+    room_type = models.ForeignKey("RoomType", related_name="rooms", on_delete=models.CASCADE)
     amenities = models.ManyToManyField("Amenity", related_name="rooms", blank=True)
     facilities = models.ManyToManyField("Facility", related_name="rooms", blank=True)
     house_rules = models.ManyToManyField("HouseRule", related_name="rooms", blank=True)
@@ -128,4 +120,19 @@ class Room(core_models.TimeStampedModel):
     def get_next_four_photos(self):
         photos = self.photos.all()[1:5]
         return photos
+
+    def get_calendars(self):
+        now = timezone.now()
+        this_year = now.year
+        this_month = now.month
+        next_month = now.month + 1
+        if this_month == 12:
+            next_month = 1
+        this_month_cal = Calendar(this_year, this_month)
+        next_month_cal = Calendar(this_year, next_month)
+        return [this_month_cal, next_month_cal]
+
+    class Meta:
+        ordering = ('name',)
+
 

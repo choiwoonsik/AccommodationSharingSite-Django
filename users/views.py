@@ -1,6 +1,9 @@
 import os
 import requests
-from django.views.generic import FormView, DetailView, UpdateView
+from django.http import HttpResponse
+from django.utils import translation
+from django.utils.translation import gettext_lazy as _
+from django.views.generic import FormView, DetailView, UpdateView, TemplateView
 from django.shortcuts import redirect, reverse
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
@@ -142,13 +145,13 @@ def github_callback(request):
                         messages.success(request, f"Welcome back {user.first_name}")
                         return redirect(reverse("core:home"))
                     else:
-                        raise GithubException("Can't get your profile")
+                        raise GithubException(_("Can't get your profile"))
                 else:
-                    raise GithubException("Can't get Access code")
+                    raise GithubException(_("Can't get Access code"))
             else:
-                raise GithubException("Error occurred")
+                raise GithubException(_("Error occurred"))
         else:
-            raise GithubException("Can't get Code")
+            raise GithubException(_("Can't get Code"))
     except GithubException as e:
         messages.error(request, e)
         return redirect(reverse("users:login"))
@@ -189,7 +192,7 @@ def kakao_callback(request):
 
                 # 이메일이 없다면 로그인 불가
                 if email is None:
-                    raise KakaoException("Please also give me email")
+                    raise KakaoException(_("Please also give me email"))
                 else:
                     profile = kakao_account.get("profile")
                     profile_image = profile.get("profile_image_url")
@@ -220,9 +223,9 @@ def kakao_callback(request):
                     messages.success(request, f"Welcome back {user.first_name}")
                     return redirect(reverse("core:home"))
             else:
-                raise KakaoException("Can't get Authorization code")
+                raise KakaoException(_("Can't get Authorization code"))
         else:
-            raise KakaoException("something went wrong")
+            raise KakaoException(_("something went wrong"))
     except KakaoException as e:
         messages.error(request, e)
         return redirect(reverse("users:login"))
@@ -249,9 +252,9 @@ class UpdatePasswordView(
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class=form_class)
-        form.fields['old_password'].widget.attrs = {"placeholder": "Current password"}
-        form.fields['new_password1'].widget.attrs = {"placeholder": "Change password"}
-        form.fields['new_password2'].widget.attrs = {"placeholder": "Confirm password"}
+        form.fields['old_password'].widget.attrs = {"placeholder": _("Current password")}
+        form.fields['new_password1'].widget.attrs = {"placeholder": _("Change password")}
+        form.fields['new_password2'].widget.attrs = {"placeholder": _("Confirm password")}
         return form
 
     def get_success_url(self):
@@ -282,13 +285,13 @@ class UpdateProfileView(
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class=form_class)
-        form.fields['first_name'].widget.attrs = {"placeholder": "First Name"}
-        form.fields['last_name'].widget.attrs = {"placeholder": "Last Name"}
-        form.fields['gender'].widget.attrs = {"placeholder": "Gender"}
-        form.fields['bio'].widget.attrs = {"placeholder": "bio"}
-        form.fields['birthdate'].widget.attrs = {"placeholder": "Birthdate (1990-01-01)"}
-        form.fields['language'].widget.attrs = {"placeholder": "Language"}
-        form.fields['currency'].widget.attrs = {"placeholder": "Currency"}
+        form.fields['first_name'].widget.attrs = {"placeholder": _("first Name")}
+        form.fields['last_name'].widget.attrs = {"placeholder": _("last Name")}
+        form.fields['gender'].widget.attrs = {"placeholder": _("gender")}
+        form.fields['bio'].widget.attrs = {"placeholder": _("bio")}
+        form.fields['birthdate'].widget.attrs = {"placeholder": _("Birthdate (1990-01-01)")}
+        form.fields['language'].widget.attrs = {"placeholder": _("language")}
+        form.fields['currency'].widget.attrs = {"placeholder": _("currency")}
         return form
 
 
@@ -299,3 +302,14 @@ def switch_hosting(request):
     except KeyError:
         request.session["is_hosting"] = True
     return redirect(reverse("core:home"))
+
+
+def switch_language(request):
+    lang = request.GET.get("lang", None)
+    if lang is not None:
+        request.session[translation.LANGUAGE_SESSION_KEY] = lang
+    return HttpResponse(status=200)
+
+
+class SeeWishList(TemplateView):
+    template_name = "lists/list_detail.html"

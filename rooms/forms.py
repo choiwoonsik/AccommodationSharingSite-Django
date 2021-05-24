@@ -1,5 +1,6 @@
 from django import forms
 from . import models
+from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
 
 
@@ -33,7 +34,10 @@ class CreatePhotoForm(forms.ModelForm):
 
     class Meta:
         model = models.Photo
-        fields = ("caption", "file")
+        fields = (
+            _("caption"),
+            _("file"),
+        )
 
     def save(self, pk, *args, **kwargs):
         photo = super().save(commit=False)

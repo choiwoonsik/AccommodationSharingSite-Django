@@ -1,7 +1,8 @@
 {%  extends "base.html" %}
+{% load i18n %}
 
 {% block page_title %}
-    update room
+    {% trans "Room Edit" %}
 {% endblock %}
 
 {% block search-bar %}
@@ -14,7 +15,7 @@
         {% include 'mixins/room/room_form.html' with form=form cta="Update room" %}
 
         <div class="mt-5">
-            <a href="{% url 'rooms:photos' room.pk %}" class="text-green-500 font-medium">Edit Photos</a>
+            <a href="{% url 'rooms:photos' room.pk %}" class="text-green-500 font-medium">{% trans "Edit Photos" %}</a>
         </div>
 
     </div>

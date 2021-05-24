@@ -1,0 +1,66 @@
+{%  extends "base.html" %}
+{% load i18n %}
+
+{% block page_title %}
+    {% trans "Conversation" %}
+{% endblock %}
+
+{% block search-bar %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="mt-10 ml-20">
+        <span class="text-green-600 font-medium items-center">
+            <a href="{% url 'reservations:detail' r_pk %}"><i class="fas fa-arrow-left"></i>{% trans " go back to reservation" %}</a>
+        </span>
+    </div>
+    <div class="container mx-auto my-2 mt-4 flex justify-between min-h-screen max-h-screen">
+
+        <div class="border w-1/4 p-10 h-full">
+            <span class="text-center w-full block text-lg font-medium">{% trans "Conversation Between" %}</span>
+            <div class="flex justify-between mt-10 items-center">
+                {% for user in conversation.participants.all %}
+                    <div class="flex flex-col items-center">
+                        {% include "mixins/user_avatar.html" with user=user %}
+                        <span class="mt-2 text-gray-500">{{ user.first_name }}</span>
+                    </div>
+                    {% if forloop.first %}
+                        <span class="font-medium text-2xl">&</span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="ml-10 w-2/3">
+            <div class="border overflow-auto h-3/4">
+                {% for msg in conversation.messages.all %}
+                    <div class="mb-4
+                        {% if msg.user.pk == user.pk %}mr-4 justify-end flex
+                        {% else %} ml-4
+                        {% endif %}">
+                        <div class="mt-2">
+                            <span class="text-sm font-medium text-gray-600">
+                                {{ msg.user.first_name }}
+                            </span>
+                            <div class="mt-px p-3 w-56 rounded
+                                {% if msg.user.pk != user.pk %}
+                                    bg-gray-200
+                                {% else %}
+                                    bg-green-200
+                                {% endif %}">
+                                {{ msg.message }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <form class="mt-4 w-full mx-auto" method="POST">
+                {% csrf_token %}
+                <input class="mb-2" name="message" placeholder="{% trans "Write a Message" %}" required/>
+                <button class="btn-link bg-blue-300">{% trans "Send Comment" %}</button>
+            </form>
+        </div>
+
+    </div>
+{% endblock %}

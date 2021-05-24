@@ -1,0 +1,27 @@
+{%  extends "base.html" %}
+{% load i18n %}
+
+{% block page_title %}
+    {{ user.first_name }}{% trans "'s wish list" %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="min-h-screen">
+
+        <div class="mb-12 text-2xl text-center">
+            <span class="text-3xl mt-3">
+                {{ user.first_name }}{% trans "'s WISH LIST" %}
+            </span>
+        </div>
+
+        <div class="container flex flex-col items-center mx-auto pb-10">
+            <div class="flex flex-wrap -mx-30 w-full mb-10">
+                {% for room in user.list.rooms.all %}
+                    {% include 'mixins/room_card.html' with room=room %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
