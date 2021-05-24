@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-24 09:40+0900\n"
+"POT-Creation-Date: 2021-05-24 23:37+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -162,11 +162,23 @@ msgstr "가격"
 msgid "Room reviewed"
 msgstr "방 평가"
 
-#: rooms/forms.py:38 rooms/views.py:198
+#: rooms/forms.py:9
+msgid "Anywhere"
+msgstr "제한없음"
+
+#: rooms/forms.py:12
+msgid "Any kind"
+msgstr "제한없음"
+
+#: rooms/forms.py:15
+msgid "Max Price ($)"
+msgstr "최대 가격 (달러)"
+
+#: rooms/forms.py:24 rooms/views.py:170
 msgid "caption"
 msgstr "주석"
 
-#: rooms/forms.py:39 rooms/views.py:199
+#: rooms/forms.py:25 rooms/views.py:171
 msgid "file"
 msgstr "파일"
 
@@ -230,29 +242,25 @@ msgstr "욕조"
 msgid "instant_book"
 msgstr "즉시예약"
 
-#: rooms/views.py:171
+#: rooms/views.py:143
 msgid "Can't delete that photo"
 msgstr "해당 사진을 지울 수 없습니다"
 
-#: rooms/views.py:174
+#: rooms/views.py:146
 msgid "Photo Deleted"
 msgstr "제거"
 
-#: rooms/views.py:186
+#: rooms/views.py:158
 msgid "Photo Updated"
 msgstr "사진 수정"
 
-#: rooms/views.py:206
+#: rooms/views.py:178
 msgid "Photo Uploaded"
 msgstr "사진 업로드"
 
-#: rooms/views.py:220
+#: rooms/views.py:192
 msgid "Room Created"
 msgstr "방 생성"
-
-#: templates/base.html:25
-msgid "Search by City"
-msgstr "도시로 검색"
 
 #: templates/conversations/conversation_detail.html:5
 msgid "Conversation"
@@ -277,6 +285,10 @@ msgstr "메시지 보내기"
 #: templates/copyrights/copyright.html:5
 msgid "Copyright"
 msgstr "저작권 표기"
+
+#: templates/copyrights/copyright.html:17
+msgid "Home Logo Icons made from"
+msgstr "홈페이지 로고는 다음 사이트에서 제작되었습니다 "
 
 #: templates/emails/verify_email.html:2
 msgid "Verify Email"
@@ -334,27 +346,31 @@ msgstr "방 만들기"
 msgid "reservation management"
 msgstr "예약관리"
 
-#: templates/partials/nav.html:17
+#: templates/partials/nav.html:17 templates/rooms/search.html:5
+msgid "Search"
+msgstr "검색"
+
+#: templates/partials/nav.html:18
 msgid "My reservation"
 msgstr "내 예약"
 
-#: templates/partials/nav.html:19
+#: templates/partials/nav.html:20
 msgid "Wish List"
 msgstr "관심목록"
 
-#: templates/partials/nav.html:20
+#: templates/partials/nav.html:21
 msgid "Profile"
 msgstr "프로필"
 
-#: templates/partials/nav.html:21
+#: templates/partials/nav.html:22
 msgid "Log out"
 msgstr "로그아웃"
 
-#: templates/partials/nav.html:23 templates/users/signup.html:21
+#: templates/partials/nav.html:24 templates/users/signup.html:21
 msgid "Log in"
 msgstr "로그인"
 
-#: templates/partials/nav.html:24 templates/users/login.html:21
+#: templates/partials/nav.html:25 templates/users/login.html:21
 msgid "Sign up"
 msgstr "회원가입"
 
@@ -415,7 +431,7 @@ msgstr "예약 목록"
 msgid "'s Reservation Room List"
 msgstr "의 예약방 목록"
 
-#: templates/reservation/reservation_list.html:25
+#: templates/reservation/reservation_list.html:24
 #: templates/reservation/reservation_manage_list.html:26
 msgid "Manage Reservation"
 msgstr "예약 관리"
@@ -480,6 +496,14 @@ msgstr "리뷰"
 msgid "Edit Room"
 msgstr "방 수정"
 
+#: templates/rooms/room_detail.html:116
+msgid "PRICE"
+msgstr "가격"
+
+#: templates/rooms/room_detail.html:121
+msgid "DAY"
+msgstr "하루"
+
 #: templates/rooms/room_edit.html:5
 msgid "Room Edit"
 msgstr "방 수정"
@@ -517,9 +541,9 @@ msgstr "제거"
 msgid "Back to Edit room"
 msgstr "방 수정으로 되돌아가기"
 
-#: templates/rooms/search.html:5
-msgid "Search"
-msgstr "검색"
+#: templates/rooms/search.html:16
+msgid "Search for the Room You want"
+msgstr "원하시는 방을 검색하세요"
 
 #: templates/users/login.html:5
 msgid "Login"
@@ -561,39 +585,39 @@ msgstr "프로필 수정"
 msgid "'s rooms"
 msgstr "의 방"
 
-#: users/forms.py:10 users/forms.py:40 users/models.py:50
+#: users/forms.py:11 users/forms.py:42 users/models.py:50
 msgid "Email"
 msgstr "이메일"
 
-#: users/forms.py:12 users/forms.py:44
+#: users/forms.py:14 users/forms.py:46
 msgid "Password"
 msgstr "변경할 비밀번호"
 
-#: users/forms.py:27
+#: users/forms.py:29
 msgid "Password is wrong"
 msgstr "비밀번호가 틀렸습니다"
 
-#: users/forms.py:29
+#: users/forms.py:31
 msgid "User does not exist"
 msgstr "유저정보가 존재하지 않습니다"
 
-#: users/forms.py:38
+#: users/forms.py:40
 msgid "First Name"
 msgstr "성"
 
-#: users/forms.py:39
+#: users/forms.py:41
 msgid "Last Name"
 msgstr "이름"
 
-#: users/forms.py:47
+#: users/forms.py:49
 msgid "Confirm Password"
 msgstr "비밀번호 확인"
 
-#: users/forms.py:55
+#: users/forms.py:57
 msgid "That email is already taken"
 msgstr "이미 존재하는 이메일입니다"
 
-#: users/forms.py:64
+#: users/forms.py:66
 msgid "Password confirmation does not match"
 msgstr "비빌번호가 일치하지 않습니다"
 
@@ -724,6 +748,9 @@ msgstr "이름"
 #: users/views.py:292
 msgid "Birthdate (1990-01-01)"
 msgstr "생일 (0000-00-00)"
+
+#~ msgid "Search by City"
+#~ msgstr "도시로 검색"
 
 #~ msgid "Chat with Room Host"
 #~ msgstr "호스트와 대화"

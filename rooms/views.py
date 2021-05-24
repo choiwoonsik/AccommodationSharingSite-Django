@@ -38,31 +38,24 @@ class RoomDetail(DetailView):
 
 
 class SearchView(View):
-    def get(self, request):
-        country = request.GET.get("country")
 
-        if country:
+    def get(self, request):
+        city = request.GET.get("city")
+
+        if city:
 
             form = forms.SearchForm(request.GET)
 
             if form.is_valid():
 
-                country = form.cleaned_data.get("country")
                 city = form.cleaned_data.get("city")
-                price = form.cleaned_data.get("price")
-                guests = form.cleaned_data.get("guests")
-                beds = form.cleaned_data.get("beds")
-                bedrooms = form.cleaned_data.get("bedrooms")
-                baths = form.cleaned_data.get("baths")
-                instant_book = form.cleaned_data.get("instant_book")
-                superhost = form.cleaned_data.get("superhost")
+                country = form.cleaned_data.get("country")
                 room_type = form.cleaned_data.get("room_type")
-                amenities = form.cleaned_data.get("amenities")
-                facilities = form.cleaned_data.get("facilities")
+                price = form.cleaned_data.get("price")
 
                 filter_args = {}
 
-                if city != "Anywhere":
+                if city != "Anywhere" and city != "제한없음":
                     filter_args["city__startswith"] = city
 
                 filter_args["country"] = country
@@ -70,34 +63,12 @@ class SearchView(View):
                 if price is not None:
                     filter_args["price__lte"] = price
 
-                if guests is not None:
-                    filter_args["guests__gte"] = guests
-
-                if beds is not None:
-                    filter_args["beds__gte"] = beds
-
-                if bedrooms is not None:
-                    filter_args["bedrooms__gte"] = bedrooms
-
-                if baths is not None:
-                    filter_args["baths__gte"] = baths
-
-                if instant_book is True:
-                    filter_args["instant_book"] = True
-
                 if room_type is not None:
                     filter_args["room_type"] = room_type
 
-                if superhost is True:
-                    filter_args["host__superhost"] = True
+                rooms = models.Room.objects.filter(**filter_args)
 
-                for amenity in amenities:
-                    filter_args["amenities"] = amenity
-
-                for facility in facilities:
-                    filter_args["facilities"] = facility
-
-                qs = models.Room.objects.filter(**filter_args).order_by("-created")
+                qs = rooms.order_by("-created")
 
                 paginator = Paginator(qs, 10, 5)
 
@@ -161,6 +132,7 @@ class RoomPhotosView(user_mixins.LoggedInOnlyView, RoomDetail):
         if room.host.pk != self.request.user.pk:
             raise Http404()
         return room
+
 
 @login_required
 def delete_photo(request, room_pk, photo_pk):

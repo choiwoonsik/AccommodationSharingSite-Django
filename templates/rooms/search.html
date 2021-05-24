@@ -10,16 +10,31 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Search!</h2>
-    <form method="get" action="{% url "rooms:search" %}">
-        {{ form.as_p }}
-        <button>Search</button>
-    </form>
 
-    <h3>Results</h3>
+        <div class="py-8 flex flex-col items-center border-gray-400">
+            <div class="flex items-center">
+                <h3 class="text-2xl">{% trans "Search for the Room You want" %}</h3>
+            </div>
+        </div>
 
-    {% for room in rooms %}
-        <h3>{{ room.name }}</h3>
-    {% endfor %}
+        <div class="container lg:w-2/3 md:w-1/2 mx-auto my-4 p-4 flex flex-col text-sm items-center border border-gray-400">
+
+            <div class="max-h-full overflow-auto">
+                <form method="get" action="{% url "rooms:search" %}">
+                    {{ form.as_p }}
+                    <button class="btn-link mt-8">Search</button>
+                </form>
+            </div>
+        </div>
+
+    <div class="items-center">
+    <div><span class="text-2xl font-bold">Results</span></div>
+        <div class="container lg:w-2/3 md:w-1/2 mx-auto my-4 p-4 flex text-sm items-center border border-gray-400">
+
+                    {% for room in rooms %}
+                        {% include 'mixins/room_card.html' with room=room %}
+                    {% endfor %}
+        </div>
+    </div>
 
 {% endblock %}

@@ -5,80 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8dabd80-299a-4e17-8707-eac92c7cd321" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/cal.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/conversations/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/conversations/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/managers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lists/migrations/0002_auto_20210522_1808.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lists/templatetags/on_favs.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lists/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/locale/ko/LC_MESSAGES/django.po" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reservations/migrations/0002_bookedday.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reservations/migrations/0003_auto_20210520_0010.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reservations/migrations/0004_auto_20210522_1808.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reservations/templatetags/manage_reserv.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reservations/templatetags/on_reserv.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reservations/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reviews/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reviews/migrations/0002_auto_20210522_1808.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reviews/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rooms/migrations/0002_auto_20210522_1808.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rooms/templatetags/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rooms/templatetags/is_booked.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/img/home.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/conversations/conversation_detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/copyrights/copyright.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/lists/list_detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/reservation/detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/reservation/reservation_list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/reservation/reservation_manage_list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/migrations/0005_auto_20210518_0038.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/migrations/0006_auto_20210522_1808.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/scss/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/scss/styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conversations/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/conversations/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lists/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/lists/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lists/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/lists/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/reservations/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/reservations/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/reservations/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reviews/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/reviews/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reviews/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/reviews/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locale/ko/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/locale/ko/LC_MESSAGES/django.po" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rooms/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms/management/commands/seed_amenities.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/management/commands/seed_amenities.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms/management/commands/seed_rooms.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/management/commands/seed_rooms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms/management/commands/seed_roomtypes.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/management/commands/seed_roomtypes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rooms/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/home.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/img/logo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/emails/verify_email.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/emails/verify_email.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/mixins/room_card.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mixins/room_card.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partials/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/footer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/copyrights/copyright.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/copyrights/copyright.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/mixins/room/room_input.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mixins/room/room_input.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/partials/nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/nav.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/partials/social_login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/social_login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/rooms/photo_create.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rooms/photo_create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/rooms/photo_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rooms/photo_edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/rooms/room_create.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rooms/room_create.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/rooms/room_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rooms/room_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/rooms/room_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rooms/room_edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/rooms/room_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rooms/room_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/rooms/room_photos.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rooms/room_photos.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/rooms/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rooms/search.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/users/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/users/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/signup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/users/update-password.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/update-password.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/users/update-profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/update-profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/users/user_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/users/user_detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/mixins.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/mixins.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -218,7 +162,7 @@
       <workItem from="1620910634381" duration="3495000" />
       <workItem from="1620965994701" duration="39023000" />
       <workItem from="1621151950345" duration="37327000" />
-      <workItem from="1621655278169" duration="57156000" />
+      <workItem from="1621655278169" duration="77386000" />
     </task>
     <servers />
   </component>

@@ -58,7 +58,6 @@ class Command(BaseCommand):
         )
         created_photos = seeder.execute()
         created_clean = flatten(list(created_photos.values()))
-        print(created_clean)
 
         for pk in created_clean:
             room = room_models.Room.objects.get(pk=pk)
@@ -69,8 +68,8 @@ class Command(BaseCommand):
                     file=f"/room_photos/{random.randint(1, 31)}.webp",
                 )
             for a in amenities:
-                magic_number = random.randint(0, 15)
-                if magic_number % 3 == 0:
+                magic_number = random.randint(0, 5)
+                if magic_number == 1:
                     room.amenities.add(a)
             for f in facilities:
                 magic_number = random.randint(0, 15)

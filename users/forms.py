@@ -7,7 +7,9 @@ from . import models
 
 class LoginForm(forms.Form):
 
-    email = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder": _("Email")}))
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={"placeholder": _("Email")})
+    )
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={"placeholder": _("Password")})
     )

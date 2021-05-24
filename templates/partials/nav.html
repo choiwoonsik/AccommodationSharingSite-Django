@@ -14,6 +14,7 @@
             <li class="nav_link"><a href="{% url 'rooms:crate' %}">{% trans "Create Room" %}</a> </li>
             <li class="nav_link"><a href="{% url 'reservations:reservation-manage' %}">{% trans "reservation management" %}</a></li>
         {% else %}
+            <li class="nav_link"><a href="{% url "rooms:search" %}"><i class="fas fa-search-location"></i> {% trans "Search" %}</a></li>
             <li class="nav_link"><a href="{% url 'reservations:reservation-list' %}">{% trans "My reservation" %} ({{ user.reservations.count }})</a></li>
         {% endif %}
         <li class="nav_link"><a href="{% url 'users:see_wish_list' %}">{% trans "Wish List" %} ({{ user.list.rooms.count }})</a></li>

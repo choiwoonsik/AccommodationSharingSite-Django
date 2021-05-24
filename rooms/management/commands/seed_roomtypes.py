@@ -14,20 +14,9 @@ class Command(BaseCommand):
 
         roomtypes = [
             "House",
-            "Flat",
-            "Bed and breakfast",
-            "Boutique hotel",
-            "Bungalow",
-            "Cabin",
-            "Cottage",
             "Guest house",
-            "Guest suite",
-            "Hostel",
             "Hotel",
-            "Loft",
             "Resort",
-            "Serviced apartment",
-            "Townhouse",
             "Villa",
         ]
         for type in roomtypes:

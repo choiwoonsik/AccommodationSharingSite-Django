@@ -1,10 +1,6 @@
-<div class="input h-full {% if field.errors %} has_error {% endif %}">
-    <span>
+<div class="input h-full {% if field.errors %} has_error {% endif %} {% if field.name == "instant_book" %} flex flex-row items-center{% endif %}">
         {{ field.label }}
-    </span>
-    <div>
         {{ field }}
-    </div>
     {% if field.errors %}
         {% for error in field.errors %}
             <span class="text-red-700 font-medium text-sm">{{ error }}</span>
