@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+pathspec = "*"
 django = "==2.2.5"
 pillow = "*"
 django-countries = "*"
@@ -13,7 +14,7 @@ requests = "*"
 
 [dev-packages]
 flake8 = "*"
-black = "*"
+awsebcli = "*"
 
 [requires]
 python_version = "3.9"

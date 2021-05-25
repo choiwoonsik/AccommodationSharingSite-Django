@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8dabd80-299a-4e17-8707-eac92c7cd321" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.ebextensions/django.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.elasticbeanstalk/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/locale/ko/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/locale/ko/LC_MESSAGES/django.po" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/rooms/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rooms/search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pipfile" beforeDir="false" afterPath="$PROJECT_DIR$/Pipfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pipfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Pipfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/rooms/room_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rooms/room_list.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +40,34 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="IlluminatedCloudWorkspaceSettings">
+    <option name="projectWorkspaceSettings">
+      <ProjectWorkspaceSettings>
+        <option name="anonymousApexSettings">
+          <AnonymousApexSettings>
+            <option name="savedDocuments">
+              <list>
+                <AnonymousApexSavedDocument>
+                  <option name="name" value="Anonymous Apex 1" />
+                </AnonymousApexSavedDocument>
+              </list>
+            </option>
+          </AnonymousApexSettings>
+        </option>
+        <option name="soqlQuerySettings">
+          <SoqlQuerySettings>
+            <option name="savedDocuments">
+              <list>
+                <SoqlQuerySavedDocument>
+                  <option name="name" value="SOQL Query 1" />
+                </SoqlQuerySavedDocument>
+              </list>
+            </option>
+          </SoqlQuerySettings>
+        </option>
+      </ProjectWorkspaceSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="1oL2q6jQcwR4Pb8JLssjwKOOu8h" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -60,7 +92,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Shell Script" />
+    <property name="settings.editor.selected.configurable" value="Erlang External Tools" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -148,7 +180,9 @@
       <workItem from="1620910634381" duration="3495000" />
       <workItem from="1620965994701" duration="39023000" />
       <workItem from="1621151950345" duration="37327000" />
-      <workItem from="1621655278169" duration="78476000" />
+      <workItem from="1621655278169" duration="83092000" />
+      <workItem from="1621930141966" duration="1309000" />
+      <workItem from="1621931459145" duration="2000000" />
     </task>
     <servers />
   </component>

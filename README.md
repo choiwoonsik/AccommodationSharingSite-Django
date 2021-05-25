@@ -23,7 +23,7 @@
 ### **[기초 설정]**
 
 1. Pipenv 가상환경을 위해서 `pipevn --three` (파이썬3 환경)을 입력해서 파이썬3를 위한 가상환경을 생성 후 `Pipenv shell`을 입력해서 가상환경으로 들어간다
-2. `Pipenv install Django=2.2.5` (버전이름 생략시 최신버전 설치)를 통해 장고를 설치
+2. `Pipenv install Django==2.2.5` (버전이름 생략시 최신버전 설치)를 통해 장고를 설치
 3. `django-admin startprject <project_name>` 명령어를 통해 장고 프로젝트 생성
    - 여기서 project_name을 config로 하는 방법을 추천한다. 이후 생성된 config 폴더 안에 있는 config폴더를 프로젝트 root로 꺼내주고 빈 config 폴더는 지워준다
 4. 생성된 mange.py 파일을 통해 기초적인 설정을 해준다
