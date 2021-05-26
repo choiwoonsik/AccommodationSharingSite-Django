@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 # DEBUG = bool(os.environ.get("DEBUG"))
 DEBUG = True
 
-ALLOWED_HOSTS = ["woohome.eba-7xmzcfcb.ap-northeast-2.elasticbeanstalk.com", "WooHome"]
+ALLOWED_HOSTS = ["woohome.eba-7xmzcfcb.ap-northeast-2.elasticbeanstalk.com"]
 
 print(DEBUG)
 
