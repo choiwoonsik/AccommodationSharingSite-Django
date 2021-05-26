@@ -18,3 +18,4 @@ pathspec
 pillow
 pipenv-to-requirements
 requests
+psycopg==2.8.4
