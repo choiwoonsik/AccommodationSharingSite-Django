@@ -185,21 +185,9 @@ class CreateRoomView(user_mixins.LoggedInOnlyView, FormView):
     template_name = "rooms/room_create.html"
 
     def form_valid(self, form):
-        f = open("https://woohome-django-web.s3.ap-northeast-2.amazonaws.com/static/test.txt", 'w')
         room = form.save()
-        print(room)
-        f.write(room, '\n')
         room.host = self.request.user
-        print(room.host, self.request.user)
-        f.write(room.host, self.request.user, '\n')
         room.save()
-        print("room is saved")
-        f.write("room is saved\n")
         form.save_m2m()
-        print("form is saved m2m")
-        f.write("form is saved m2m\n")
         messages.success(self.request, _("Room Created"))
-        print("room pk : ", room.pk)
-        f.write("room pk : ", room.pk)
-        f.close()
         return redirect(reverse("rooms:detail", kwargs={'pk': room.pk}))
