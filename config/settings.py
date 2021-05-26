@@ -188,8 +188,8 @@ if not DEBUG:
 
     # AWS - static
 
-    DEFAULT_FILE_STORAGE = "config.custom_storages.StaticStorage"
-    STATICFILES_STORAGE = "config.custom_storages.UploadStorage"
+    DEFAULT_FILE_STORAGE = "config.custom_storages.UploadStorage"
+    STATICFILES_STORAGE = "config.custom_storages.StaticStorage"
     AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
     AWS_STORAGE_BUCKET_NAME = "woohome-django-web"
