@@ -599,7 +599,7 @@ msgstr "이메일"
 
 #: users/forms.py:14 users/forms.py:46
 msgid "Password"
-msgstr "변경할 비밀번호"
+msgstr "비밀번호"
 
 #: users/forms.py:29
 msgid "Password is wrong"
