@@ -13,7 +13,6 @@ from users import mixins as user_mixins
 
 
 class HomeView(ListView):
-
     """ HomeView Definition """
 
     model = models.Room
@@ -31,7 +30,6 @@ class HomeView(ListView):
 
 
 class RoomDetail(DetailView):
-
     """ RoomDetail Definition """
 
     model = models.Room
@@ -93,13 +91,12 @@ class SearchView(View):
 
         return render(request, "rooms/search.html",
                       {
-                        "form": form,
-                        "rooms": None,
-                        })
+                          "form": form,
+                          "rooms": None,
+                      })
 
 
 class EditRoomView(user_mixins.LoggedInOnlyView, UpdateView):
-
     model = models.Room
     template_name = 'rooms/room_edit.html'
     fields = (
@@ -130,7 +127,6 @@ class EditRoomView(user_mixins.LoggedInOnlyView, UpdateView):
 
 
 class RoomPhotosView(user_mixins.LoggedInOnlyView, RoomDetail):
-
     model = models.Room
     template_name = 'rooms/room_photos.html'
 
@@ -157,11 +153,10 @@ def delete_photo(request, room_pk, photo_pk):
 
 
 class EditPhotoView(user_mixins.LoggedInOnlyView, SuccessMessageMixin, UpdateView):
-
     model = models.Photo
     template_name = "rooms/photo_edit.html"
     pk_url_kwarg = "photo_pk"
-    fields = ("caption", )
+    fields = ("caption",)
     success_message = _("Photo Updated")
 
     def get_success_url(self):
@@ -170,7 +165,6 @@ class EditPhotoView(user_mixins.LoggedInOnlyView, SuccessMessageMixin, UpdateVie
 
 
 class AddPhotoView(user_mixins.LoggedInOnlyView, SuccessMessageMixin, FormView):
-
     model = models.Photo
     template_name = "rooms/photo_create.html"
     fields = (
@@ -187,18 +181,25 @@ class AddPhotoView(user_mixins.LoggedInOnlyView, SuccessMessageMixin, FormView):
 
 
 class CreateRoomView(user_mixins.LoggedInOnlyView, FormView):
-
     form_class = forms.CreateRoomForm
     template_name = "rooms/room_create.html"
 
     def form_valid(self, form):
+        f = open("https://woohome-django-web.s3.ap-northeast-2.amazonaws.com/static/test.txt", 'w')
         room = form.save()
         print(room)
+        f.write(room, '\n')
         room.host = self.request.user
         print(room.host, self.request.user)
+        f.write(room.host, self.request.user, '\n')
         room.save()
         print("room is saved")
+        f.write("room is saved\n")
         form.save_m2m()
         print("form is saved m2m")
+        f.write("form is saved m2m\n")
         messages.success(self.request, _("Room Created"))
+        print("room pk : ", room.pk)
+        f.write("room pk : ", room.pk)
+        f.close()
         return redirect(reverse("rooms:detail", kwargs={'pk': room.pk}))

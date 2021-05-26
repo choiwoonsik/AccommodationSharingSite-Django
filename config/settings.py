@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "jrhkDZ&X&?j8?%6m$('7L<aPN;6fAA
 DEBUG = bool(os.environ.get("DEBUG"))
 # DEBUG = True
 
-ALLOWED_HOSTS = ["woohome.eba-7xmzcfcb.ap-northeast-2.elasticbeanstalk.com", "www.WooHome.com"]
+ALLOWED_HOSTS = ["woohome.eba-7xmzcfcb.ap-northeast-2.elasticbeanstalk.com", "localhost", "127.0.0.1"]
 
 
 # Application definition
