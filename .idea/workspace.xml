@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8dabd80-299a-4e17-8707-eac92c7cd321" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.ebextensions/01-packages.config" beforeDir="false" afterPath="$PROJECT_DIR$/.ebextensions/01-packages.config" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ebextensions/02-django.config" beforeDir="false" afterPath="$PROJECT_DIR$/.ebextensions/02-django.config" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pipfile" beforeDir="false" afterPath="$PROJECT_DIR$/Pipfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pipfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Pipfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,7 +179,7 @@
       <workItem from="1621151950345" duration="37327000" />
       <workItem from="1621655278169" duration="83092000" />
       <workItem from="1621930141966" duration="1309000" />
-      <workItem from="1621931459145" duration="15176000" />
+      <workItem from="1621931459145" duration="15925000" />
     </task>
     <servers />
   </component>

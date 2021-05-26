@@ -17,7 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from rooms import views as room_views
+
+
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
 
 urlpatterns = [
     path("", include("core.urls", namespace="core")),
@@ -27,6 +31,7 @@ urlpatterns = [
     path("reviews/", include("reviews.urls", namespace="reviews")),
     path("lists/", include("lists.urls", namespace="lists")),
     path("conversations/", include("conversations.urls", namespace="conversations")),
+    path('sentry-debug/', trigger_error),
     path("admin/", admin.site.urls),
 ]
 
