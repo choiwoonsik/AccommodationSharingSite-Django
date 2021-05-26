@@ -79,8 +79,12 @@ def complete_verification(request, key):
 
 
 def github_login(request):
+    if os.environ.get("DEBUG"):
+        URL = os.environ.get("LOCAL_URL")
+    else:
+        URL = os.environ.get("AWS_URL")
     client_id = os.environ.get("GITHUB_ID")
-    redirect_uri = "http://127.0.0.1:8000/users/login/github/callback"
+    redirect_uri = f"{URL}/users/login/github/callback"
     return redirect(
         f"https://github.com/login/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&scope=read:user"
     )
@@ -162,16 +166,24 @@ class KakaoException(Exception):
 
 
 def kakao_login(request):
+    if os.environ.get("DEBUG"):
+        URL = os.environ.get("LOCAL_URL")
+    else:
+        URL = os.environ.get("AWS_URL")
     REST_API_KEY = os.environ.get("KAKAO_KEY")
-    REDIRECT_URI = "http://127.0.0.1:8000/users/login/kakao/callback"
+    REDIRECT_URI = f"{URL}/users/login/kakao/callback"
     return redirect(
         f"https://kauth.kakao.com/oauth/authorize?client_id={REST_API_KEY}&redirect_uri={REDIRECT_URI}&response_type=code"
     )
 
 
 def kakao_callback(request):
+    if os.environ.get("DEBUG"):
+        URL = os.environ.get("LOCAL_URL")
+    else:
+        URL = os.environ.get("AWS_URL")
     KAKAO_ID = os.environ.get("KAKAO_KEY")
-    REDIRECT_URI = "http://127.0.0.1:8000/users/login/kakao/callback"
+    REDIRECT_URI = f"{URL}/users/login/kakao/callback"
     try:
         code = request.GET.get("code", None)
         if code is not None:

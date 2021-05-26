@@ -193,8 +193,12 @@ class CreateRoomView(user_mixins.LoggedInOnlyView, FormView):
 
     def form_valid(self, form):
         room = form.save()
+        print(room)
         room.host = self.request.user
+        print(room.host, self.request.user)
         room.save()
+        print("room is saved")
         form.save_m2m()
+        print("form is saved m2m")
         messages.success(self.request, _("Room Created"))
         return redirect(reverse("rooms:detail", kwargs={'pk': room.pk}))
