@@ -25,6 +25,7 @@ class Command(BaseCommand):
             review_models.Review,
             int(number),
             {
+                "review": seeder.faker.sentence(),
                 "accuracy": lambda x: random.randint(0, 6),
                 "communication": lambda x: random.randint(0, 6),
                 "cleanliness": lambda x: random.randint(0, 6),
