@@ -55,7 +55,8 @@ class Command(BaseCommand):
             "TV",
         ]
         for amenity in amenities:
-            room_models.Amenity.objects.create(name=amenity)
+            if room_models.Amenity.objects.get_or_none(name=amenity) is None:
+                room_models.Amenity.objects.create(name=amenity)
         self.stdout.write(
             self.style.SUCCESS(f"Amenities {len(amenities)} is Created !")
         )

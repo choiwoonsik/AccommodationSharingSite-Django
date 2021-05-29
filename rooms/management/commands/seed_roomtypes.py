@@ -20,5 +20,6 @@ class Command(BaseCommand):
             "Villa",
         ]
         for type in roomtypes:
-            room_models.RoomType.objects.create(name=type)
+            if room_models.RoomType.objects.get_or_none(name=type) is None:
+                room_models.RoomType.objects.create(name=type)
         self.stdout.write(self.style.SUCCESS(f"roomtype {len(roomtypes)} is Created !"))

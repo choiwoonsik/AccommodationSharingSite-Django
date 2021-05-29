@@ -17,5 +17,6 @@ class Command(BaseCommand):
             "NonSmoking Area",
         ]
         for rule in rules:
-            room_models.HouseRule.objects.create(name=rule)
+            if room_models.HouseRule.objects.get_or_none(name=rule) is None:
+                room_models.HouseRule.objects.create(name=rule)
         self.stdout.write(self.style.SUCCESS(f"house_rules {len(rules)} is Created !"))

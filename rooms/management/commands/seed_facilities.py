@@ -19,7 +19,8 @@ class Command(BaseCommand):
             "Gym",
         ]
         for facility in facilities:
-            room_models.Facility.objects.create(name=facility)
+            if room_models.Facility.objects.get_or_none(name=facility) is None:
+                room_models.Facility.objects.create(name=facility)
         self.stdout.write(
             self.style.SUCCESS(f"Facilities {len(facilities)} is Created !")
         )

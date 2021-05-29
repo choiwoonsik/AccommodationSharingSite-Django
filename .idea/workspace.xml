@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="b8dabd80-299a-4e17-8707-eac92c7cd321" name="Default Changelist" comment="Merge branch 'main' of https://github.com/choiwoonsik/AccommodationSharingSite-Django into main&#10;&#10;# Conflicts:&#10;#&#9;.ebextensions/02-django.config&#10;배포 시 유저, 방, 규칙, 시설 fake data 생성 &amp; github 로그인 및 회원가입 수정 re 1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reviews/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/reviews/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms/management/commands/seed_amenities.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/management/commands/seed_amenities.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms/management/commands/seed_facilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/management/commands/seed_facilities.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms/management/commands/seed_rooms.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/management/commands/seed_rooms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms/management/commands/seed_roomtypes.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/management/commands/seed_roomtypes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms/management/commands/seed_rules.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/management/commands/seed_rules.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
