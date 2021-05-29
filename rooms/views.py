@@ -29,7 +29,7 @@ class HomeView(ListView):
         return context
 
 
-@login_required()
+# @login_required()
 class RoomDetail(DetailView):
     """ RoomDetail Definition """
 
