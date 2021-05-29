@@ -22,10 +22,8 @@ class Command(BaseCommand):
 
         number = options.get("number")
         seeder = Seed.seeder()
-
         all_users = user_models.User.objects.all()
         all_rooms = room_models.Room.objects.all()
-
         seeder.add_entity(
             reservation_models.Reservation,
             int(number),
@@ -41,7 +39,7 @@ class Command(BaseCommand):
                 "room": lambda x: random.choice(all_rooms),
                 "check_in": lambda x: datetime.now(),
                 "check_out": lambda x: datetime.now()
-                + timedelta(days=random.randint(1, 25)),
+                + timedelta(days=random.randint(3, 25)),
             },
         ),
         seeder.execute()
