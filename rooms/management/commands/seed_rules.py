@@ -15,12 +15,6 @@ class Command(BaseCommand):
         rules = [
             "Pets Allowed",
             "NonSmoking Area",
-            "No Shower After 10 P.M.",
-            "No Laundry After 10 P.M.",
-            "No Cook After 10 P.M.",
-            "Smokey Dishes Are Restricted",
-            "Don't Make Too Much Noise",
-            "Let's Be Considerate Of Our Neighbors"
         ]
         for rule in rules:
             room_models.HouseRule.objects.create(name=rule)
