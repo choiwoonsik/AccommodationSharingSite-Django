@@ -17,6 +17,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         number = options.get("number")
+
+        if user_models.User.objects.all().count() >= int(number):
+            return None
+
         seeder = Seed.seeder()
         seeder.add_entity(
             user_models.User, int(number), {"is_staff": False, "is_superuser": False}

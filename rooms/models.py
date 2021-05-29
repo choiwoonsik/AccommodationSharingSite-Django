@@ -3,6 +3,9 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField
 from django.urls import reverse
+from imagekit.models import ImageSpecField
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 from core import models as core_models
 from cal import Calendar
 
@@ -60,7 +63,10 @@ class Photo(core_models.TimeStampedModel):
     """ Photo Model Definition """
 
     caption = models.CharField(max_length=80)
-    file = models.ImageField(upload_to="room_photos")
+    # file = models.ImageField(upload_to="room_photos")
+    file = ProcessedImageField(upload_to="room_photos",
+                               processors=[ResizeToFill(1024, 1024)],
+                               options={'quality': 60})
     room = models.ForeignKey("Room", related_name="photos", on_delete=models.CASCADE)
 
     def __str__(self):

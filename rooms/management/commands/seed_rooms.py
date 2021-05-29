@@ -24,6 +24,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         number = options.get("number")
+
+        if room_models.Room.objects.all().count() >= int(number):
+            return None
         seeder = Seed.seeder()
 
         all_users = user_models.User.objects.all()
