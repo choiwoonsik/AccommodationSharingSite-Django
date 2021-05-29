@@ -69,15 +69,15 @@ class Command(BaseCommand):
                     file=f"room_photos/{random.randint(1, 31)}.webp",
                 )
             for a in amenities:
-                magic_number = random.randint(0, 5)
-                if magic_number == 1:
+                magic_number = random.randint(0, 4)
+                if magic_number == 0:
                     room.amenities.add(a)
             for f in facilities:
-                magic_number = random.randint(0, 15)
-                if magic_number % 2 == 0:
+                magic_number = random.randint(0, 1)
+                if magic_number == 0:
                     room.facilities.add(f)
             for r in rules:
-                magic_number = random.randint(0, 2)
-                if magic_number % 2 == 0:
+                magic_number = random.randint(0, 1)
+                if magic_number == 0:
                     room.house_rules.add(r)
         self.stdout.write(self.style.SUCCESS(f"room {number} is Created !"))
