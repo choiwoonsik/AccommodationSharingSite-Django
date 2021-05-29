@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8dabd80-299a-4e17-8707-eac92c7cd321" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.ebextensions/02-django.config" beforeDir="false" afterPath="$PROJECT_DIR$/.ebextensions/02-django.config" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/locale/ko/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/locale/ko/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms/management/commands/seed_rules.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/management/commands/seed_rules.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/partials/social_login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/social_login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
     </list>
@@ -178,7 +179,8 @@
       <workItem from="1621151950345" duration="37327000" />
       <workItem from="1621655278169" duration="83092000" />
       <workItem from="1621930141966" duration="1309000" />
-      <workItem from="1621931459145" duration="40249000" />
+      <workItem from="1621931459145" duration="40682000" />
+      <workItem from="1622257371780" duration="1430000" />
     </task>
     <servers />
   </component>
