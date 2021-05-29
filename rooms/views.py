@@ -29,7 +29,8 @@ class HomeView(ListView):
         return context
 
 
-class RoomDetail(user_mixins.LoggedInOnlyView, DetailView):
+@login_required()
+class RoomDetail(DetailView):
     """ RoomDetail Definition """
 
     model = models.Room
