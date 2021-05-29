@@ -6,16 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b8dabd80-299a-4e17-8707-eac92c7cd321" name="Default Changelist" comment="Merge branch 'main' of https://github.com/choiwoonsik/AccommodationSharingSite-Django into main&#10;&#10;# Conflicts:&#10;#&#9;.ebextensions/02-django.config&#10;배포 시 유저, 방, 규칙, 시설 fake data 생성 &amp; github 로그인 및 회원가입 수정 re 1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipfile" beforeDir="false" afterPath="$PROJECT_DIR$/Pipfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Pipfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements-dev.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements-dev.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservations/management/commands/seed_reservations.py" beforeDir="false" afterPath="$PROJECT_DIR$/reservations/management/commands/seed_reservations.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reviews/management/commands/seed_reviews.py" beforeDir="false" afterPath="$PROJECT_DIR$/reviews/management/commands/seed_reviews.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/management/commands/seed_rooms.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/management/commands/seed_rooms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rooms/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/rooms/room_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rooms/room_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/management/commands/seed_users.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/management/commands/seed_users.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locale/ko/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/locale/ko/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/conversations/conversation_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/conversations/conversation_detail.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

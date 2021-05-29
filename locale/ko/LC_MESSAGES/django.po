@@ -735,7 +735,7 @@ msgstr "현재 비밀번호"
 
 #: users/views.py:271
 msgid "Change password"
-msgstr "변경할 비밀번호"
+msgstr "비밀번호 변경"
 
 #: users/views.py:272
 msgid "Confirm password"

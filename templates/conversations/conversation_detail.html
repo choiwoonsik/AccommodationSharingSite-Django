@@ -43,6 +43,7 @@
                             <span class="text-sm font-medium text-gray-600">
                                 {{ msg.user.first_name }}
                             </span>
+                            <span class="text-sm text-gray-500">{{ msg.created|date:'N d, P' }}</span>
                             <div class="mt-px p-3 w-56 rounded
                                 {% if msg.user.pk != user.pk %}
                                     bg-gray-200
