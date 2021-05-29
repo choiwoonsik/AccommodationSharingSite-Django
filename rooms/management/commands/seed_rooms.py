@@ -64,7 +64,7 @@ class Command(BaseCommand):
             room = room_models.Room.objects.get(pk=pk)
             for i in range(0, random.randint(2, 6)):
                 room_models.Photo.objects.create(
-                    caption="caption",
+                    caption=f"room - {room.name}",
                     room=room,
                     file=f"room_photos/{random.randint(1, 31)}.webp",
                 )
@@ -73,8 +73,8 @@ class Command(BaseCommand):
                 if magic_number == 0:
                     room.amenities.add(a)
             for f in facilities:
-                magic_number = random.randint(0, 1)
-                if magic_number == 0:
+                magic_number = random.randint(0, 2)
+                if magic_number <= 1:
                     room.facilities.add(f)
             for r in rules:
                 magic_number = random.randint(0, 1)
