@@ -85,12 +85,12 @@ def github_login(request):
         URL = os.environ.get("AWS_URL")
     client_id = os.environ.get("GITHUB_ID")
     redirect_uri = f"{URL}/users/login/github/callback"
-    if os.environ.get("DEBUG"):
-        return redirect(
-            f"https://github.com/login/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&scope=read:user"
-        )
-    else:
-        return redirect(reverse("users:login"))
+    # if os.environ.get("DEBUG"):
+    return redirect(
+        f"https://github.com/login/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&scope=read:user"
+    )
+    # else:
+    #     return redirect(reverse("users:login"))
 
 
 class GithubException(Exception):
