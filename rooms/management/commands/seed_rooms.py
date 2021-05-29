@@ -64,7 +64,7 @@ class Command(BaseCommand):
             room = room_models.Room.objects.get(pk=pk)
             for i in range(0, random.randint(2, 6)):
                 room_models.Photo.objects.create(
-                    caption=f"room - {room.name}",
+                    caption=f"room-{room.name[:15]}",
                     room=room,
                     file=f"room_photos/{random.randint(1, 31)}.webp",
                 )
