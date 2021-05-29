@@ -10,7 +10,7 @@ class Command(BaseCommand):
         try:
             User.objects.get(username="eb_admin")
         except User.DoesNotExist:
-            User.objects.create_superuser("eb_admin", "dnstlr2933@naver.com", os.environ.get("SU_PASSWORD"))
+            User.objects.create_superuser("eb_admin", "admin@admin.com", os.environ.get("SU_PASSWORD"))
             self.stdout.write(self.style.SUCCESS(f"Superuser is Created !"))
             return
         self.stdout.write(self.style.SUCCESS(f"Superuser is already exist"))
