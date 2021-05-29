@@ -28,9 +28,6 @@ class Command(BaseCommand):
 
         all_users = user_models.User.objects.all()
         room_types = room_models.RoomType.objects.all()
-        amenities = room_models.Amenity.objects.all()
-        facilities = room_models.Facility.objects.all()
-        rules = room_models.HouseRule.objects.all()
         ontime = datetime.now() - timedelta(
             hours=datetime.now().hour, minutes=datetime.now().minute
         )
@@ -47,7 +44,7 @@ class Command(BaseCommand):
                 "address": lambda x: seeder.faker.address(),
                 "host": lambda x: random.choice(all_users),
                 "room_type": lambda x: random.choice(room_types),
-                "price": lambda x: random.randint(0, 1000),
+                "price": lambda x: random.randint(30, 500),
                 "guests": lambda x: random.randint(1, 5),
                 "beds": lambda x: random.randint(1, 5),
                 "bedrooms": lambda x: random.randint(1, 5),
@@ -56,8 +53,12 @@ class Command(BaseCommand):
                 "check_out": lambda x: ontime + timedelta(hours=random.randint(7, 11)),
             },
         )
+
         created_photos = seeder.execute()
         created_clean = flatten(list(created_photos.values()))
+        amenities = room_models.Amenity.objects.all()
+        facilities = room_models.Facility.objects.all()
+        rules = room_models.HouseRule.objects.all()
 
         for pk in created_clean:
             room = room_models.Room.objects.get(pk=pk)
