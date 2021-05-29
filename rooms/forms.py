@@ -21,8 +21,8 @@ class CreatePhotoForm(forms.ModelForm):
     class Meta:
         model = models.Photo
         fields = (
-            _("caption"),
-            _("file"),
+            "caption",
+            "file",
         )
 
     def save(self, pk, *args, **kwargs):

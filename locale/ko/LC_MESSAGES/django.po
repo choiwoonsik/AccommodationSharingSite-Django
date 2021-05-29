@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-27 01:18+0900\n"
+"POT-Creation-Date: 2021-05-29 20:03+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -174,14 +174,6 @@ msgstr "제한없음"
 msgid "Max Price ($)"
 msgstr "최대 가격 (달러)"
 
-#: rooms/forms.py:24 rooms/views.py:171
-msgid "caption"
-msgstr "주석"
-
-#: rooms/forms.py:25 rooms/views.py:172
-msgid "file"
-msgstr "파일"
-
 #: rooms/models.py:28
 msgid "Room Type"
 msgstr "방 종류"
@@ -242,23 +234,31 @@ msgstr "욕조"
 msgid "instant_book"
 msgstr "즉시예약"
 
-#: rooms/views.py:146
+#: rooms/views.py:147
 msgid "Can't delete that photo"
 msgstr "해당 사진을 지울 수 없습니다"
 
-#: rooms/views.py:149
+#: rooms/views.py:150
 msgid "Photo Deleted"
 msgstr "제거"
 
-#: rooms/views.py:160
+#: rooms/views.py:161
 msgid "Photo Updated"
 msgstr "사진 수정"
 
-#: rooms/views.py:179
+#: rooms/views.py:172
+msgid "caption"
+msgstr "주석"
+
+#: rooms/views.py:173
+msgid "file"
+msgstr "파일"
+
+#: rooms/views.py:180
 msgid "Photo Uploaded"
 msgstr "사진 업로드"
 
-#: rooms/views.py:192
+#: rooms/views.py:193
 msgid "Room Created"
 msgstr "방 생성"
 
@@ -373,10 +373,6 @@ msgstr "로그인"
 #: templates/partials/nav.html:25 templates/users/login.html:21
 msgid "Sign up"
 msgstr "회원가입"
-
-#: templates/partials/social_login.html:3
-msgid "😞GITHUB LOGIN CANNOT USE😞"
-msgstr "😞깃헙을 통한 로그인은 제공되지 않습니다😞"
 
 #: templates/partials/social_login.html:5
 msgid "Continue with Github"
@@ -756,6 +752,9 @@ msgstr "이름"
 #: users/views.py:307
 msgid "Birthdate (1990-01-01)"
 msgstr "생일 (0000-00-00)"
+
+#~ msgid "😞GITHUB LOGIN CANNOT USE😞"
+#~ msgstr "😞깃헙을 통한 로그인은 제공되지 않습니다😞"
 
 #~ msgid "Room List"
 #~ msgstr "방 목록"
