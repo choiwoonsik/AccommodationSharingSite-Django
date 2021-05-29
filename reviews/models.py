@@ -24,7 +24,7 @@ class Review(core_models.TimeStampedModel):
 
     # 평가 항목
     # accuracy = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
-    review = models.TextField(_("review"), max_length=80, validators=[MinLengthValidator(10)])
+    review = models.TextField(_("review"), max_length=80)
     accuracy = models.IntegerField(_("accuracy"), choices=RATING_CHOICE, default=ONE)
     communication = models.IntegerField(_("communication"), choices=RATING_CHOICE, default=ONE)
     cleanliness = models.IntegerField(_("cleanliness"), choices=RATING_CHOICE, default=ONE)
