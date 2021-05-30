@@ -1,4 +1,4 @@
-# **Accommodation Sharing Site**
+# **Accommodation Sharing Site - WooHome**
 
 ### **[기초 설정]**
 
