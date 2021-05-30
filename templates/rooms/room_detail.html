@@ -30,7 +30,7 @@
                             {% trans "Remove from Favorites" %}
                         </a>
                     {% else %}
-                        <a class="block mt-8 w-1/2 mb-10 text-base text-red-500"
+                        <a class="block mt-8 w-full mb-10 text-base text-red-500"
                        href="{% url 'lists:toggle-room' room.pk %}?action=add">
                         {% trans "Save to Favorites" %}
                         </a>

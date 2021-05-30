@@ -41,9 +41,11 @@
                     <span class="mt-2 text-gray-500">{{ reservation.room.host.first_name }}</span>
                 </div>
                 <div class="ml-5 flex flex-col">
-                    <span class="font-medium mb-px">
-                        {% trans "Contact your WooHome Host" %}
-                    </span>
+                    {% if reservation.room.host.pk != user.pk %}
+                    <span class="font-medium mb-px">{% trans "Contact your WooHome Host" %}</span>
+                    {% else %}
+                    <span class="font-medium mb-px">{% trans "Contact your WooHome Guest" %}</span>
+                    {% endif %}
                     <a href="{% url 'conversations:go' reservation.pk reservation.room.host.pk reservation.guest.pk %}"
                        class="font-medium text-green-500">
                         {% trans "Send a Message" %}
@@ -64,16 +66,16 @@
                     {% if reservation.status == 'pending' and reservation.room.host != user %}
                         <a href="{% url 'reservation:edit' reservation.pk 'cancel' %}" class="btn-link block px-3 mb-5">{% trans "Cancel Reservation" %}</a>
                     {% elif reservation.status == 'pending' and reservation.room.host == user %}
-                        <a href="{% url 'reservation:edit' reservation.pk 'confirm' %}" class="btn-link block px-3 mb-5">{% trans "confirm Reservation" %}</a>
-                        <a href="{% url 'reservation:edit' reservation.pk 'cancel' %}" class="btn-link block px-3 mb-5">{% trans "Cancel Reservation" %}</a>
+                        <a href="{% url 'reservation:edit' reservation.pk 'confirm' %}" class="btn-link block px-3 mb-5">{% trans "Approve Reservation" %}</a>
+                        <a href="{% url 'reservation:edit' reservation.pk 'cancel' %}" class="btn-link block px-3 mb-5">{% trans "Decline Reservation" %}</a>
                     {% elif reservation.room.host == user %}
                         <a href="{% url 'reservation:edit' reservation.pk 'pending' %}" class="btn-link block px-3 mb-5">{% trans "Pending Reservation" %}</a>
                         <a href="{% url 'reservation:edit' reservation.pk 'cancel' %}" class="btn-link block px-3 mb-5">{% trans "Cancel Reservation" %}</a>
                     {% endif %}
                 {% endif %}
             {% elif reservation.room.host == user %}
-                <a href="{% url 'reservation:edit' reservation.pk 'confirm' %}" class="btn-link block px-3 mb-5">{% trans "confirm Reservation" %}</a>
-                <a href="{% url 'reservation:edit' reservation.pk 'pending' %}" class="btn-link block px-3 mb-5">{% trans "pending Reservation" %}</a>
+                <a href="{% url 'reservation:edit' reservation.pk 'confirm' %}" class="btn-link block px-3 mb-5">{% trans "Approve Reservation" %}</a>
+                <a href="{% url 'reservation:edit' reservation.pk 'pending' %}" class="btn-link block px-3 mb-5">{% trans "Pending Reservation" %}</a>
             {% endif %}
         </div>
 

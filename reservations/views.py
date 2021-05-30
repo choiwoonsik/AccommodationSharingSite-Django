@@ -40,8 +40,9 @@ class ReservationDetailView(View):
         if (reservation.guest != self.request.user and reservation.room.host != self.request.user) \
                 or reservation is None:
             raise Http404()
+        user = self.request.user
         form = review_forms.CreateReviewForm()
-        return render(self.request, "reservation/detail.html", {'reservation': reservation, 'form': form})
+        return render(self.request, "reservation/detail.html", {'reservation': reservation, 'form': form, 'user': user})
 
 
 def edit_reservation(request, pk, verb):

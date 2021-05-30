@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-29 20:03+0900\n"
+"POT-Creation-Date: 2021-05-30 11:04+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,11 +122,11 @@ msgstr "취소되었습니다"
 msgid "status"
 msgstr "상태"
 
-#: reservations/models.py:42 reviews/models.py:32 rooms/models.py:83
+#: reservations/models.py:42 reviews/models.py:32 rooms/models.py:89
 msgid "check_in"
 msgstr "입실"
 
-#: reservations/models.py:43 rooms/models.py:84
+#: reservations/models.py:43 rooms/models.py:90
 msgid "check_out"
 msgstr "퇴실"
 
@@ -174,63 +174,63 @@ msgstr "제한없음"
 msgid "Max Price ($)"
 msgstr "최대 가격 (달러)"
 
-#: rooms/models.py:28
+#: rooms/models.py:31
 msgid "Room Type"
 msgstr "방 종류"
 
-#: rooms/models.py:38 templates/rooms/room_detail.html:57
+#: rooms/models.py:41 templates/rooms/room_detail.html:57
 msgid "Amenities"
 msgstr "생활 편의 시설"
 
-#: rooms/models.py:47 templates/rooms/room_detail.html:63
+#: rooms/models.py:50 templates/rooms/room_detail.html:63
 msgid "Facilities"
 msgstr "부대 시설"
 
-#: rooms/models.py:56
+#: rooms/models.py:59
 msgid "House Rule"
 msgstr "규칙"
 
-#: rooms/models.py:73
+#: rooms/models.py:79
 msgid "name"
 msgstr "이름"
 
-#: rooms/models.py:74
+#: rooms/models.py:80
 msgid "description"
 msgstr "설명"
 
-#: rooms/models.py:75
+#: rooms/models.py:81
 msgid "country"
 msgstr "나라"
 
-#: rooms/models.py:76
+#: rooms/models.py:82
 msgid "city"
 msgstr "도시"
 
-#: rooms/models.py:77
+#: rooms/models.py:83
 msgid "price"
 msgstr "가격"
 
-#: rooms/models.py:78
+#: rooms/models.py:84
 msgid "address"
 msgstr "주소"
 
-#: rooms/models.py:79
+#: rooms/models.py:85
 msgid "guests"
 msgstr "인원 수"
 
-#: rooms/models.py:80
+#: rooms/models.py:86
 msgid "beds"
 msgstr "침대"
 
-#: rooms/models.py:81
+#: rooms/models.py:87
 msgid "bedrooms"
 msgstr "침실"
 
-#: rooms/models.py:82
+#: rooms/models.py:88
 msgid "baths"
 msgstr "욕조"
 
-#: rooms/models.py:85
+#: rooms/models.py:91
 msgid "instant_book"
 msgstr "즉시예약"
 
@@ -274,11 +274,11 @@ msgstr "예약으로 돌아가기"
 msgid "Conversation Between"
 msgstr "대화창"
 
-#: templates/conversations/conversation_detail.html:60
+#: templates/conversations/conversation_detail.html:61
 msgid "Write a Message"
 msgstr "메시지를 작성하세요"
 
-#: templates/conversations/conversation_detail.html:61
+#: templates/conversations/conversation_detail.html:62
 msgid "Send Comment"
 msgstr "메시지 보내기"
 
@@ -394,33 +394,36 @@ msgstr "방으로 되돌아가기"
 msgid "Contact your WooHome Host"
 msgstr "당신의 WooHome 호스트에게 연락하세요"
 
-#: templates/reservation/detail.html:49
+#: templates/reservation/detail.html:47
+msgid "Contact your WooHome Guest"
+msgstr "당신의 WooHome 게스트에게 연락하세요"
+
+#: templates/reservation/detail.html:51
 msgid "Send a Message"
 msgstr "메시지 보내기"
 
-#: templates/reservation/detail.html:57
+#: templates/reservation/detail.html:59
 msgid "Write your review"
 msgstr "당신의 리뷰를 작성하세요"
 
-#: templates/reservation/detail.html:61
+#: templates/reservation/detail.html:63
 msgid "Submit Review"
 msgstr "리뷰 작성"
 
-#: templates/reservation/detail.html:65 templates/reservation/detail.html:68
-#: templates/reservation/detail.html:71
+#: templates/reservation/detail.html:67 templates/reservation/detail.html:73
 msgid "Cancel Reservation"
 msgstr "예약 취소"
 
-#: templates/reservation/detail.html:67 templates/reservation/detail.html:75
-msgid "confirm Reservation"
-msgstr "예약 확인"
+#: templates/reservation/detail.html:69 templates/reservation/detail.html:77
+msgid "Approve Reservation"
+msgstr "예약 승인"
 
 #: templates/reservation/detail.html:70
-msgid "Pending Reservation"
-msgstr "예약 보류"
+msgid "Decline Reservation"
+msgstr "예약 거절"
 
-#: templates/reservation/detail.html:76
-msgid "pending Reservation"
+#: templates/reservation/detail.html:72 templates/reservation/detail.html:78
+msgid "Pending Reservation"
 msgstr "예약 보류"
 
 #: templates/reservation/reservation_list.html:5
@@ -575,7 +578,7 @@ msgstr "프로필 수정"
 
 #: templates/users/update-profile.html:19
 msgid "Change Password"
-msgstr "변경할 비밀번호"
+msgstr "비밀번호 변경"
 
 #: templates/users/user_detail.html:5
 msgid "'s Profile"
@@ -735,7 +738,7 @@ msgstr "현재 비밀번호"
 
 #: users/views.py:271
 msgid "Change password"
-msgstr "비밀번호 변경"
+msgstr "변경할 비밀번호"
 
 #: users/views.py:272
 msgid "Confirm password"
@@ -752,6 +755,9 @@ msgstr "이름"
 #: users/views.py:307
 msgid "Birthdate (1990-01-01)"
 msgstr "생일 (0000-00-00)"
+
+#~ msgid "confirm Reservation"
+#~ msgstr "예약 확인"
 
 #~ msgid "😞GITHUB LOGIN CANNOT USE😞"
 #~ msgstr "😞깃헙을 통한 로그인은 제공되지 않습니다😞"
