@@ -17,6 +17,8 @@ def go_conversations(request, r_pk, a_pk, b_pk):
     if user_a is not None and user_b is not None:
         conversation = models.Conversation.objects.filter(
             participants=user_a
+        ).filter(
+            participants=user_b
         )
         if conversation.count() == 0:
             conversation = models.Conversation.objects.create()
