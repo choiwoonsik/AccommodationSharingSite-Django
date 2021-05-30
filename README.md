@@ -1,25 +1,5 @@
 # **Accommodation Sharing Site**
 
-### **[DESCRIPTION]**
-
-- WebPage of sharing accommodation by any people
-- 숙박 공유 사이트 제작 개인 프로젝트
-
----
-
-### **[사용한 언어 및 기술]**
-
-- Python, Django, HTML, CSS
-- back-end : Django
-- front-end : Django 템플릿 시스템으로 구성
-  - React를 사용하지 않은 이유
-    - 상호작용이 많은 경우가 아니면 굳이 사용할 필요가없다
-    - 콘텐츠 위주의 사이트 이므로 React를 굳이 선택할 필요가 없다
-    - Django 템플릿으로도 반응형 웹사이트를 충분히 만들수 있다
-- 모든 작업은 Pipenv 가상환경위에서 진행되었다 (Pipenv shell)
-
----
-
 ### **[기초 설정]**
 
 1. Pipenv 가상환경을 위해서 `pipevn --three` (파이썬3 환경)을 입력해서 파이썬3를 위한 가상환경을 생성 후 `Pipenv shell`을 입력해서 가상환경으로 들어간다
@@ -34,21 +14,20 @@
      - 코드를 파이썬에 맞는 Formmat을 자동으로 적용시켜서 변경해주는 formmater
 5. settings.py 파일을 수정해서 프로젝트에 맞는 설정을 진행
    - TIME_ZONE 등등..
-   - 여기서 passeord validation 등의 기본 설정을 해준다
+   - 여기서 password validation 등의 기본 설정을 해준다
 6. `python manage.py runserver` 장고 서버를 실행
 
    - 이때 먼저 admin계정을 활성화해준다
      - `python manage.py migrate`를 통해 활성화하고 `python manage.py createsuperuser` 를 통해 관리자 계정을 생성
    - ipAddress/admin 을 통해 관리자 계정으로 접근 가능
 
-   > migrate란?
-
-   migrate를 하기전에는 장고에서 admin 계정에 접근해도 django_session테이블이 존재하지 않는다고 에러가 발생한다, 이는 db와 장고가 연동이 되어있지 않다는 것으로 프로젝트와 DB간에 admin, auth, contenttypes, sessions에 대해서 연동이 필요하다는 것을 의미한다
-
-   데이터베이스의 경우에서 마이그레이션은 하나의 상태에서 다른 상태로, 다른 데이터 유형으로 바꾸는 것으로 이런 데이터 유형이 변경 될때 마다 migration이 필요하다
-
-   `**python manage.py migrate` 명령어의 일련의 과정\*\*
-
+   >migrate란?
+   >
+   >migrate를 하기전에는 장고에서 admin 계정에 접근해도 django_session테이블이 존재하지 않는다고 에러가 발생한다, 이는 db와 장고가 연동이 되어있지 않다는 것으로 프로젝트와 DB간에 admin, auth, contenttypes, sessions에 대해서 연동이 필요하다는 것을 의미한다
+   >
+   >데이터베이스의 경우에서 마이그레이션은 하나의 상태에서 다른 상태로, 다른 데이터 유형으로 바꾸는 것으로 이런 데이터 유형이 변경 될때 마다 migration이 필요하다
+   
+   `**python manage.py migrate` 명령어의 일련의 과정
    - models에 뭔가를 변경하면 → 일부 데이터의 유형을 변경하게 되고 → migration을 생성하고 → 이를 Django에서 해당 migration을 적용해서 (데이터를)migrate한다 → 이로인해 DataBase가 변경된 Data가 Update가 되고 → 결과적으로 Django - DB가 동기화된다
    - 처음에는 장고에 기본적으로 admin, auth, contenttypes, sessions의 데이터 유형이 존재하므로 해당 내용을 비어있는 DB에 업데이트 해주는 것이다
    - 후에는 데이터를 변경한 후에 python manage.py makemigrations를 통해 migrations 폴더를 만들고 migrate를 진행
@@ -63,146 +42,49 @@
 
 # [완성된 사이트 모습]
 
-- ...
+👾 **프로젝트 링크**
 
-# [사이트 구현 내용]
+- [http://woohome.eba-7xmzcfcb.ap-northeast-2.elasticbeanstalk.com/](http://woohome.eba-7xmzcfcb.ap-northeast-2.elasticbeanstalk.com/)
 
-장고에 기본적으로 django-admin startapp OOO을 입력하면 기본양식으로 애플리케이션을 생성해준다. 앞으로 필요한 모든 애플리케이션은 해당 명령어를 통해서 생성해준다
+    (모바일 환경에서는 화면이 정상적으로 나오지 않을 수 있습니다)
 
-> 장고 프레임워크에 맞춰서 설계하는 것이므로 주어진 양식에 따라서 작성해줘야 한다. 따라서 파일을 변경하거나 지우면 안된다. (라이브러리는 내 코드가 해당 함수를 호출 - 도구 vs 프레임워크는 프로그램에서 내 코드를 호출 - 제공되는 틀)
+    (aws 배포 중단 시 링크가 작동하지 않을 수 있습니다)
 
-## [USERS APPLICATION]
+**🛠 사용한 기술 Stacks**
 
-유저(고객) 객체를 관리
+- Django, Python, HTML, tailwindCSS, AWS
+- front-end : Django 템플릿 시스템으로 구성
+  - React를 사용하지 않은 이유
+    - 상호작용이 많은 경우가 아니면 굳이 사용할 필요가 없다
+    - 콘텐츠 위주의 사이트 이므로 React를 굳이 선택할 필요가 없다
+    - Django 템플릿으로도 반응형 웹사이트를 충분히 만들수 있다
+- 모든 작업은 Pipenv 가상환경위에서 진행되었다 (Pipenv shell)
 
-### **Models.py**
+🐢 **배운점**
 
-**models.OOField**
+- 웹 프로젝트 백엔드 구현을 위해 Django를 사용하며 익힐 수 있었다
+- 웹 페이지 구현을 위해 HTML, tailwindCSS를 이용하여 프론트를 구현하였다
+- 배포를 위해 AWS 사용법을 익히고, elastic beanstalk, ec2, RDS, s3를 사용하는 방법을 익힐 수 있었다
+- 로그인 및 회원가입을 위해 kakao, github 로그인 api를 이해하고 콜백 처리 등을 할 수 있었다
+- 그 외, 구현 과정에서 url의 흐름, 복수의 언어 제공, 사용자 요청시 백엔드 처리 등에 대해 배울 수 있었다
 
-- 해당 필드값을 통해서 원하는 값을 받을 수 있다
-- ImageField, CharField, TextField, BooleanField, DateField, EmailField ...
-- ImageFiled를 사용하기 위해서는 Pilow를 설치해줘야 한다 `pipenv install pillow`
-- models.CharField(choices=GENDER_CHOICES, max_length=10, null=True, blank=True) 등으로 설정을 해줄수 있다
-  - null은 데이터베이스 상 null로 채우는 것이며 장고에서는 blank로 해줘야하므로 두개를 같이 해줘야한다 (null, blank)
-  - CharFiled는 **Choices**를 가질수 있다 → GENDER_CHOICES ( (key, "value"), (key, "value"), .. )
-- model에 작성한 값들을 장고가 알아서 ORM(Object Relation Mapping)을 통해 데이터베이스에 연동시켜 준다
-- 참고 : [https://docs.djangoproject.com/en/2.2/ref/forms/fields/](https://docs.djangoproject.com/en/2.2/ref/forms/fields/)
+### 메인 화면
 
-### **Admin.py**
+<img src="https://user-images.githubusercontent.com/42247724/120092065-49374900-c14b-11eb-8ca1-b838b85c7d53.png" width=600 height=400>
 
-**@admin.register(models.User)**
+### 로그인 및 회원가입
 
-- == admin.site.register(models.User, _CustomerUserAdmin_) , 여기서 *CustomerUserAdmin*은 @admin 바로 아래에 붙은 클래스 명
-- admin패널을 컨트롤하는 곳이 Admin.py이다, 선언한 model을 사용하기 위해서는 Admin에 register 필요 (클래스에 register, 등록할 클래스 위에 decorator 선언)
+<img src="https://user-images.githubusercontent.com/42247724/120092070-52281a80-c14b-11eb-917f-8e0ac77d6811.png" width=600 height=400>
+<img src="https://user-images.githubusercontent.com/42247724/120092078-58b69200-c14b-11eb-8a01-a6765b809490.png" width=600 height=400>
 
-**list_display**
+### 예약 확인 및 채팅
 
-- User의 리스트의 보여주는 형태를 변경하기 위해 사용
-- 리스트에서 보여줄 특성값들을 고른다
+<img src="https://user-images.githubusercontent.com/42247724/120092081-5fdda000-c14b-11eb-8b69-6bab90355017.png" width=600 height=400>
+<img src="https://user-images.githubusercontent.com/42247724/120092083-62d89080-c14b-11eb-9311-4bea846aed71.png" width=600 height=400>
 
-  ```python
-  list_display = ("username", ... )
-  ```
+### 방 상세 페이지, 검색 페이지, 프로필, 예약 페이지
 
-**list_filter**
-
-- 객체(유저)리스트에 대해서 특성값에 대해 filter를 적용하여 볼수 있다
-
-  ```python
-  list_filter = ('preference', ... )
-  ```
-
-**search_fields**
-
-- 특성값에 대한 검색을 가능하게 한다
-- 특정 class인스턴스의 프로퍼티로 접근하기 위해서는 `__`로 이어가면 접근할수 있다
-
-  ```python
-  search_fields = ["city", "host__username"]
-  // User객체인 host의 프로퍼티임 username에 접근
-  ```
-
-**fieldsets**
-
-- 리스트 내의 유저 내부의 값을 보여줄때 사용
-- fieldsets를 이용해서 admin에서 보여주고자 하는 값을 조절할 수 있다
-- UserAdmin.fieldsets은 장고에 내장되어있는 UserAdmin의 필드값들을 갖고있으므로 [UserAdmin.fieldsets + models]를 통해 생성한 필드값들을 추가함으로서 기존 값 + 새로운 값을 갖는 admin창을 만들 수 있다
-
-  ```python
-  from django.contrib.auth.admin import UserAdmin
-
-  fieldsets = UserAdmin.fieldsets + (
-          (
-              "custom profile",
-              {
-                  # 간략히 보여주기가 가능해진다**
-                  "classes": ("collapse",),
-                  "fields": (
-                      "avatar",
-                      "gender",
-                      "currency",
-  											...
-                  )
-              },
-          ),
-      )
-  ```
-
-**ordering = ("price",)**
-
-- list_display 항목중 골라서 기본세팅으로 정렬값을 줄 수 있다
-
-**filter_horizontal**
-
-- ManyToManyField()의 값을 갖는 값에 대해서 여러개를 가지게 되면 보기 힘드므로 보기 쉽게 만들어주는 형식
-
-  ```java
-  filter_horizontal = (
-          "amenities",
-          "facilities",
-          "house_rules",
-      )
-  ```
-
-## [ROOMS APPLICATION]
-
-방 객체를 관리
-
-### **core - models.py**
-
-- 방의 생성 및 업데이트를 확인하기 위한 애플리케이션을 따로 생성 → django startapp "core"
-- DB에 연동시키지 않기 위해서는 class Meta를 선언 후 abstract = True 설정을 넣어줘야한다
-
-  ```python
-  class Meta:
-          abstract = True
-  ```
-
-- DateField(auto_now=False, auto_now_add=False)
-  - auto_now : save 할때마다 date와 time을 저장
-  - auto_now_add : create할 때마다 date와 time을 저장
-
-### **models.py**
-
-- host = models.ForeignKey(**"user_models.User"**, on_delete=models.CASCADE)
-  - ForeinKey()를 이용해서 현재 model에 다른 애플리케이션의 model을 가져올 수 있다 → User 모델 취함
-  - 일대다 관계, 하나의 유저 - 복수의 Room
-  - on_delete
-    - CASCADE: 종속, User가 삭제되면 같이 삭제된다 (폭포수 효과)
-    - PROTECTED : 보호, Room을 갖는 유저가 존재한다면 해당 User는 지워질수 없다
-- room_type = models.ManyToManyField(**"RoomType"**, blank=True)
-  - 다대다 관계일 경우 ManyToMantyField()를 사용
-  - AbstractItem을 갖는 RoomType, room_type은 복수의 RoomType값을 가질수 있다
-  - 키값으로 삼을 타 클래스를 찾을 때 클래스 명을 String으로 하면 선언 위치에 상관없이 부를수 있다. 그렇지 않으면 호출이 선언 다음에 와야만 가능하다
-
-### **Meta class**
-
-- Meta class를 선언해서 사용
-- verbose_name_plural("<name>") : 장고에서 자동으로 s를 붙여주는데 ies를 확인해주지 못하므로 원하는 단어로 설정
-- verbose_name("<name>") : s는 그대로 붙이는데 설정한 이름을 갖게한뒤 붙임
-
-[REVIEWS, RESERVATION, LIST, CONVERSATION APPLICATION]
-
-- 위와 동일
-
-자세한 정리는 노션에 따로 하도록 하겠다
+<img src="https://user-images.githubusercontent.com/42247724/120092106-8a2f5d80-c14b-11eb-8dd3-3ec9a41fd7bd.png" width=600 height=400>
+<img src="https://user-images.githubusercontent.com/42247724/120092108-8ef41180-c14b-11eb-8d30-bb32c9349273.png" width=600 height=400>
+<img src="https://user-images.githubusercontent.com/42247724/120092112-95828900-c14b-11eb-82d3-3b1571839c13.png" width=600 height=400>
+<img src="https://user-images.githubusercontent.com/42247724/120092146-c5ca2780-c14b-11eb-9275-1153679025ed.png" width=600 height=400>
